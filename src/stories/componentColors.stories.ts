@@ -155,19 +155,20 @@ const ColorShowcaseTemplate = () => {
         display: flex;
         flex-direction: column;
         border-radius: 16px;
-        box-shadow: 0 2px 8px 0 rgba(0,0,0,0.08), 0 1.5px 4px 0 rgba(0,0,0,0.04);
+        outline: 1px solid var(--Color-Base-Border-default);
+        box-shadow: none;
         overflow: hidden;
         background: #fff;
         min-width: 0;
-        transition: box-shadow 0.2s;
+        transition: outline 0.2s;
       }
       .modern-color-card:hover {
-        box-shadow: 0 4px 16px 0 rgba(0,0,0,0.12), 0 2px 8px 0 rgba(0,0,0,0.06);
+        box-shadow: none;
       }
       .modern-color-swatch {
         height: 90px;
         width: 100%;
-        border-bottom: 1px solid #f0f0f0;
+        border-bottom: none;
         display: flex;
         align-items: center;
         justify-content: center;
