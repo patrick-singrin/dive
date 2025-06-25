@@ -1,7 +1,6 @@
 // src/tokens/processor.ts
 // Token Processor: Loads and merges token JSON files according to cascading rules
 
-import type { ComponentTokenPaths, TokenValue } from './types';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';

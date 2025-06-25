@@ -77,7 +77,7 @@ export class TokenResolver {
   /**
    * Handles errors and provides helpful debugging information.
    */
-  handleError(error: Error): void {
+  handleError(/* error: Error */): void {
     // TODO: Implement error handling
   }
 
