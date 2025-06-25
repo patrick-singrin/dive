@@ -1,48 +1,141 @@
 # Design Token & CSS Variable System
 
-## Overview
+### ✨ Overview
 
-This project provides a scalable system for managing design tokens and generating CSS custom properties (variables) from Figma-exported JSON files. It supports multiple themes, color modes, and component-level tokens, enabling consistent, theme-aware styling for web applications.
-
-## Key Features
-
-- **Design Token Management:** Organize tokens by theme, color mode, and component.
-- **Automated CSS Variable Generation:** Scripts convert tokens into CSS variables for use in your app.
-- **Theme & Mode Support:** Easily switch between themes and color modes using generated CSS.
-- **Extensible:** Add new themes, modes, or token sets as your design system grows.
-
-## Project Structure
-
-- `src/tokens/data/` — Source JSON files for themes, color modes, components, and layouts.
-- `src/tokens/css-vars/` — Generated CSS variable files (output from scripts).
-- `scripts/` — Node.js scripts for processing tokens and generating CSS variables.
-- `src/` — Main source code for your application or design system.
-
-## Getting Started
-
-1. **Install dependencies:**
-   ```sh
-   npm install
-   ```
-2. **Generate CSS variables:**
-   ```sh
-   node scripts/generate-css-variables.cjs
-   ```
-   See [`scripts/README.md`](scripts/README.md) for advanced options and troubleshooting.
-
-3. **Use in your app:**
-   Import the generated CSS files from `src/tokens/css-vars/` into your project as needed.
-
-## Contributing
-
-- To extend or modify the token system, edit the JSON files in `src/tokens/data/`.
-- To improve or customize the generation scripts, see [`scripts/README.md`](scripts/README.md) for details and guidance.
-
-## Resources
-
-- [scripts/README.md](scripts/README.md): Full documentation for the CSS variable generation scripts, including file structure, CLI usage, and troubleshooting.
-- Comments in each script for implementation details and extension points.
+A scalable, theme-aware system for managing design tokens and generating CSS custom properties from Figma-exported JSON files. Supports multiple themes, color modes, and component-level tokens for consistent, maintainable web styling.
 
 ---
 
-For questions or improvements, please open an issue or contact the maintainers. 
+### 🚀 Quickstart
+
+1. **Install dependencies**
+   ```sh
+   npm install
+   ```
+2. **Generate CSS variables**
+   ```sh
+   node scripts/generate-css-variables.cjs
+   ```
+   _See [scripts/README.md](scripts/README.md) for advanced options._
+
+3. **Use in your app**
+   - Import generated CSS from `src/tokens/css-vars/` into your project.
+
+---
+
+### 🗂️ Project Structure
+
+| Path                        | Purpose                                      |
+|-----------------------------|----------------------------------------------|
+| `src/tokens/data/`          | Source JSON for themes, modes, components    |
+| `src/tokens/css-vars/`      | Generated CSS variable files                 |
+| `scripts/`                  | Node.js scripts for token processing         |
+| `src/`                      | Main source code for your app/design system  |
+
+---
+
+### 🧩 Token File Examples
+
+#### Theme File (`src/tokens/data/brand-theme/dive-theme.json`)
+```json
+{
+  "Color": {
+    "Primary": {
+      "600": { "$type": "color", "$value": "#2c72e0" }
+      // ...
+    }
+    // ...
+  }
+  // ...
+}
+```
+
+#### Color Mode File (`src/tokens/data/color-modes/light-mode.json`)
+```json
+{
+  "Primary": {
+    "600": { "$type": "color", "$value": "{Color.Primary.600}" }
+    // ...
+  }
+  // ...
+}
+```
+
+#### Component Token File (`src/tokens/data/components/component.json`)
+```json
+{
+  "Color": {
+    "Primary": {
+      "Background": {
+        "default": { "$type": "color", "$value": "{Primary.50}" }
+        // ...
+      }
+      // ...
+    }
+    // ...
+  }
+  // ...
+}
+```
+
+---
+
+### 🛠️ Common Tasks
+
+#### Add a New Theme
+1. Create a new file in `src/tokens/data/brand-theme/` (e.g., `my-theme.json`).
+2. Follow the structure of `dive-theme.json`.
+3. Run the generation script.
+
+#### Add a New Color Mode
+1. Create a new file in `src/tokens/data/color-modes/` (e.g., `sepia-mode.json`).
+2. Map semantic tokens to palette tokens as in `light-mode.json`.
+3. Run the generation script.
+
+#### Add a New Component Token
+1. Edit `src/tokens/data/components/component.json`.
+2. Add your new token under the appropriate category.
+3. Run the generation script.
+
+#### Enable Layout Tokens (Advanced)
+- Uncomment the relevant line in `scripts/generate-css-variables.cjs`.
+- Ensure all references in `layouts/layout.json` are mapped in your mode files.
+
+---
+
+### 📚 Storybook Integration
+
+- Explore all color variables visually in Storybook:  
+  `src/stories/componentColors.stories.ts`  
+  _Switch between color modes to preview all states and categories._
+- For Storybook configuration and advanced usage, see `src/stories/Configure.mdx` and [Storybook Docs](https://storybook.js.org/).
+
+---
+
+### 🧑‍💻 Contributing
+
+- Edit JSON files in `src/tokens/data/` to extend tokens.
+- See [scripts/README.md](scripts/README.md) for script customization.
+- PRs and issues welcome!
+
+---
+
+### ❓ FAQ & Troubleshooting
+
+- **Unresolved Token Error:**  
+  Check that all references in your JSON files are correct and resolvable.
+- **No Files Generated:**  
+  Remove the `--dry-run` flag.
+- **Script Errors:**  
+  Ensure all required JSON files exist and are valid.
+
+---
+
+### 📎 Resources
+
+- [scripts/README.md](scripts/README.md): Full script documentation, CLI options, troubleshooting.
+- Comments in each script for implementation details.
+
+---
+
+_For questions or improvements, open an issue or contact the maintainers._ 
