@@ -1,0 +1,329 @@
+/* Chip Component - Interactive pill-shaped elements following Figma design */
+
+:host {
+  /* Default chip styling using dive design tokens */
+  --chip-background: var(--Color-Base-Background-default, #ffffff);
+  --chip-color: var(--Color-Base-Foreground-default, #1d222c);
+  --chip-border: var(--border-border-width-default, 1px) solid var(--Color-Base-Border-default, #c7cad1);
+  --chip-padding: var(--Spacing-1, 4px) var(--Spacing-4, 12px);
+  --chip-border-radius: var(--border-border-radius-full, 999px);
+  
+  /* Typography - hardcoded as mentioned since typo variables aren't ready */
+  --chip-font-family: "Atkinson Hyperlegible Next", sans-serif;
+  --chip-font-size: 14px;
+  --chip-font-weight: 400;
+  --chip-line-height: 22px;
+  
+  /* Inherit CSS variables from document for shadow DOM */
+  --Spacing-1: var(--Spacing-1, 4px);
+  --Spacing-2: var(--Spacing-2, 8px);
+  --Spacing-4: var(--Spacing-4, 12px);
+  --border-border-radius-full: var(--border-border-radius-full, 999px);
+  --border-border-width-default: var(--border-border-width-default, 1px);
+  --border-border-width-hover: var(--border-border-width-hover, 2px);
+  --border-border-width-active: var(--border-border-width-active, 2px);
+}
+
+.chip {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--chip-padding);
+  border-radius: var(--chip-border-radius);
+  border: var(--chip-border);
+  font-family: var(--chip-font-family);
+  font-size: var(--chip-font-size);
+  font-weight: var(--chip-font-weight);
+  line-height: var(--chip-line-height);
+  white-space: nowrap;
+  cursor: pointer;
+  box-sizing: border-box;
+  user-select: none;
+  background-color: var(--chip-background);
+  color: var(--chip-color);
+  transition: all 0.2s ease;
+  outline: none;
+}
+
+.chip:hover:not(.chip--disabled) {
+  --chip-background: var(--Color-Base-Background-hover, #ecedf0);
+  --chip-border: var(--border-border-width-hover, 2px) solid var(--Color-Base-Border-hover, #a1a7b3);
+}
+
+.chip:active:not(.chip--disabled) {
+  --chip-background: var(--Color-Base-Background-active, #c7cad1);
+  --chip-border: var(--border-border-width-active, 2px) solid var(--Color-Base-Border-active, #7b8394);
+}
+
+.chip:focus-visible:not(.chip--disabled) {
+  box-shadow: 0 0 0 2px var(--Color-Focus-focus, #2c72e0);
+}
+
+/* Disabled state */
+.chip--disabled {
+  --chip-background: var(--Color-Base-Background-disabled, #ffffff);
+  --chip-color: var(--Color-Base-Foreground-disabled, #a1a7b3);
+  --chip-border: var(--border-border-width-disabled, 1px) solid var(--Color-Base-Border-disabled, #c7cad1);
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Primary variant */
+.chip--type-primary {
+  --chip-background: var(--Color-Primary-Background-default, #ffffff);
+  --chip-color: var(--Color-Primary-Foreground-default, #2c72e0);
+  --chip-border: var(--border-border-width-default, 1px) solid var(--Color-Primary-Border-default, #568ee6);
+}
+
+.chip--type-primary:hover:not(.chip--disabled) {
+  --chip-background: var(--Color-Primary-Background-hover, #eaf1fc);
+  --chip-border: var(--border-border-width-hover, 2px) solid var(--Color-Primary-Border-hover, #2c72e0);
+}
+
+.chip--type-primary:active:not(.chip--disabled) {
+  --chip-background: var(--Color-Primary-Background-active, #c0d5f6);
+  --chip-color: var(--Color-Primary-Foreground-active, #2053a4);
+  --chip-border: var(--border-border-width-active, 2px) solid var(--Color-Primary-Border-active, #245db8);
+}
+
+.chip--type-primary.chip--disabled {
+  --chip-background: var(--Color-Primary-Background-disabled, #ffffff);
+  --chip-color: var(--Color-Primary-Foreground-disabled, #a1a7b3);
+  --chip-border: var(--border-border-width-disabled, 1px) solid var(--Color-Primary-Border-disabled, #a1a7b3);
+}
+
+/* Success variant */
+.chip--type-success {
+  --chip-background: var(--Color-Success-Background-default, #ffffff);
+  --chip-color: var(--Color-Success-Foreground-default, #058900);
+  --chip-border: var(--border-border-width-default, 1px) solid var(--Color-Success-Border-default, #37a133);
+}
+
+.chip--type-success:hover:not(.chip--disabled) {
+  --chip-background: var(--Color-Success-Background-hover, #e6f3e6);
+  --chip-border: var(--border-border-width-hover, 2px) solid var(--Color-Success-Border-hover, #058900);
+}
+
+.chip--type-success:active:not(.chip--disabled) {
+  --chip-background: var(--Color-Success-Background-active, #b4dcb3);
+  --chip-color: var(--Color-Success-Foreground-active, #046400);
+  --chip-border: var(--border-border-width-active, 2px) solid var(--Color-Success-Border-active, #047000);
+}
+
+.chip--type-success.chip--disabled {
+  --chip-background: var(--Color-Success-Background-disabled, #ffffff);
+  --chip-color: var(--Color-Success-Foreground-disabled, #a1a7b3);
+  --chip-border: var(--border-border-width-disabled, 1px) solid var(--Color-Success-Border-disabled, #a1a7b3);
+}
+
+/* Warning variant */
+.chip--type-warning {
+  --chip-background: var(--Color-Warning-Background-default, #ffffff);
+  --chip-color: var(--Color-Warning-Foreground-default, #cc4e00);
+  --chip-border: var(--border-border-width-default, 1px) solid var(--Color-Warning-Border-default, #d67133);
+}
+
+.chip--type-warning:hover:not(.chip--disabled) {
+  --chip-background: var(--Color-Warning-Background-hover, #faede6);
+  --chip-border: var(--border-border-width-hover, 2px) solid var(--Color-Warning-Border-hover, #cc4e00);
+}
+
+.chip--type-warning:active:not(.chip--disabled) {
+  --chip-background: var(--Color-Warning-Background-active, #f0cab3);
+  --chip-color: var(--Color-Warning-Foreground-active, #953900);
+  --chip-border: var(--border-border-width-active, 2px) solid var(--Color-Warning-Border-active, #a74000);
+}
+
+.chip--type-warning.chip--disabled {
+  --chip-background: var(--Color-Warning-Background-disabled, #ffffff);
+  --chip-color: var(--Color-Warning-Foreground-disabled, #a1a7b3);
+  --chip-border: var(--border-border-width-disabled, 1px) solid var(--Color-Warning-Border-disabled, #a1a7b3);
+}
+
+/* Error variant */
+.chip--type-error {
+  --chip-background: var(--Color-Error-Background-default, #ffffff);
+  --chip-color: var(--Color-Error-Foreground-default, #ea0d11);
+  --chip-border: var(--border-border-width-default, 1px) solid var(--Color-Error-Border-default, #ee3d41);
+}
+
+.chip--type-error:hover:not(.chip--disabled) {
+  --chip-background: var(--Color-Error-Background-hover, #fde7e7);
+  --chip-border: var(--border-border-width-hover, 2px) solid var(--Color-Error-Border-hover, #ea0d11);
+}
+
+.chip--type-error:active:not(.chip--disabled) {
+  --chip-background: var(--Color-Error-Background-active, #f9b6b8);
+  --chip-color: var(--Color-Error-Foreground-active, #ab090c);
+  --chip-border: var(--border-border-width-active, 2px) solid var(--Color-Error-Border-active, #c00b0e);
+}
+
+.chip--type-error.chip--disabled {
+  --chip-background: var(--Color-Error-Background-disabled, #ffffff);
+  --chip-color: var(--Color-Error-Foreground-disabled, #a1a7b3);
+  --chip-border: var(--border-border-width-disabled, 1px) solid var(--Color-Error-Border-disabled, #a1a7b3);
+}
+
+/* Info variant */
+.chip--type-info {
+  --chip-background: var(--Color-Info-Background-default, #ffffff);
+  --chip-color: var(--Color-Info-Foreground-default, #007bba);
+  --chip-border: var(--border-border-width-default, 1px) solid var(--Color-Info-Border-default, #3395c8);
+}
+
+.chip--type-info:hover:not(.chip--disabled) {
+  --chip-background: var(--Color-Info-Background-hover, #e6f2f8);
+  --chip-border: var(--border-border-width-hover, 2px) solid var(--Color-Info-Border-hover, #007bba);
+}
+
+.chip--type-info:active:not(.chip--disabled) {
+  --chip-background: var(--Color-Info-Background-active, #b3d7ea);
+  --chip-color: var(--Color-Info-Foreground-active, #005a88);
+  --chip-border: var(--border-border-width-active, 2px) solid var(--Color-Info-Border-active, #006599);
+}
+
+.chip--type-info.chip--disabled {
+  --chip-background: var(--Color-Info-Background-disabled, #ffffff);
+  --chip-color: var(--Color-Info-Foreground-disabled, #a1a7b3);
+  --chip-border: var(--border-border-width-disabled, 1px) solid var(--Color-Info-Border-disabled, #a1a7b3);
+}
+
+/* === FILLED VARIANTS === */
+
+/* Base filled */
+.chip--variant-filled {
+  --chip-background: var(--Color-Base-Primary-Background-default, #242a37);
+  --chip-color: var(--Color-Base-Primary-Foreground-default, #ffffff);
+  --chip-border: var(--border-border-width-default, 1px) solid var(--Color-Base-Primary-Background-default, #242a37);
+}
+
+.chip--variant-filled:hover:not(.chip--disabled) {
+  --chip-background: var(--Color-Base-Primary-Background-hover, #31394a);
+  --chip-border: var(--border-border-width-hover, 2px) solid var(--Color-Base-Primary-Background-hover, #31394a);
+}
+
+.chip--variant-filled:active:not(.chip--disabled) {
+  --chip-background: var(--Color-Base-Primary-Background-active, #374054);
+  --chip-border: var(--border-border-width-active, 2px) solid var(--Color-Base-Primary-Background-active, #374054);
+}
+
+.chip--variant-filled.chip--disabled {
+  --chip-background: var(--Color-Base-Primary-Background-disabled, #a1a7b3);
+  --chip-color: var(--Color-Base-Primary-Foreground-disabled, #ecedf0);
+  --chip-border: var(--border-border-width-disabled, 1px) solid var(--Color-Base-Primary-Background-disabled, #a1a7b3);
+}
+
+/* Primary filled */
+.chip--variant-filled.chip--type-primary {
+  --chip-background: var(--Color-Primary-Primary-Background-default, #2c72e0);
+  --chip-color: var(--Color-Primary-Primary-Foreground-default, #ffffff);
+  --chip-border: var(--border-border-width-default, 1px) solid var(--Color-Primary-Primary-Background-default, #2c72e0);
+}
+
+.chip--variant-filled.chip--type-primary:hover:not(.chip--disabled) {
+  --chip-background: var(--Color-Primary-Primary-Background-hover, #245db8);
+  --chip-border: var(--border-border-width-hover, 2px) solid var(--Color-Primary-Primary-Background-hover, #245db8);
+}
+
+.chip--variant-filled.chip--type-primary:active:not(.chip--disabled) {
+  --chip-background: var(--Color-Primary-Primary-Background-active, #2053a4);
+  --chip-border: var(--border-border-width-active, 2px) solid var(--Color-Primary-Primary-Background-active, #2053a4);
+}
+
+.chip--variant-filled.chip--type-primary.chip--disabled {
+  --chip-background: var(--Color-Primary-Primary-Background-disabled, #a1a7b3);
+  --chip-color: var(--Color-Primary-Primary-Foreground-disabled, #ecedf0);
+  --chip-border: var(--border-border-width-disabled, 1px) solid var(--Color-Primary-Primary-Background-disabled, #a1a7b3);
+}
+
+/* Success filled */
+.chip--variant-filled.chip--type-success {
+  --chip-background: var(--Color-Success-Primary-Background-default, #058900);
+  --chip-color: var(--Color-Success-Primary-Foreground-default, #ffffff);
+  --chip-border: var(--border-border-width-default, 1px) solid var(--Color-Success-Primary-Background-default, #058900);
+}
+
+.chip--variant-filled.chip--type-success:hover:not(.chip--disabled) {
+  --chip-background: var(--Color-Success-Primary-Background-hover, #047000);
+  --chip-border: var(--border-border-width-hover, 2px) solid var(--Color-Success-Primary-Background-hover, #047000);
+}
+
+.chip--variant-filled.chip--type-success:active:not(.chip--disabled) {
+  --chip-background: var(--Color-Success-Primary-Background-active, #046400);
+  --chip-border: var(--border-border-width-active, 2px) solid var(--Color-Success-Primary-Background-active, #046400);
+}
+
+.chip--variant-filled.chip--type-success.chip--disabled {
+  --chip-background: var(--Color-Success-Primary-Background-disabled, #a1a7b3);
+  --chip-color: var(--Color-Success-Primary-Foreground-disabled, #ecedf0);
+  --chip-border: var(--border-border-width-disabled, 1px) solid var(--Color-Success-Primary-Background-disabled, #a1a7b3);
+}
+
+/* Warning filled */
+.chip--variant-filled.chip--type-warning {
+  --chip-background: var(--Color-Warning-Primary-Background-default, #cc4e00);
+  --chip-color: var(--Color-Warning-Primary-Foreground-default, #ffffff);
+  --chip-border: var(--border-border-width-default, 1px) solid var(--Color-Warning-Primary-Background-default, #cc4e00);
+}
+
+.chip--variant-filled.chip--type-warning:hover:not(.chip--disabled) {
+  --chip-background: var(--Color-Warning-Primary-Background-hover, #a74000);
+  --chip-border: var(--border-border-width-hover, 2px) solid var(--Color-Warning-Primary-Background-hover, #a74000);
+}
+
+.chip--variant-filled.chip--type-warning:active:not(.chip--disabled) {
+  --chip-background: var(--Color-Warning-Primary-Background-active, #953900);
+  --chip-border: var(--border-border-width-active, 2px) solid var(--Color-Warning-Primary-Background-active, #953900);
+}
+
+.chip--variant-filled.chip--type-warning.chip--disabled {
+  --chip-background: var(--Color-Warning-Primary-Background-disabled, #a1a7b3);
+  --chip-color: var(--Color-Warning-Primary-Foreground-disabled, #ecedf0);
+  --chip-border: var(--border-border-width-disabled, 1px) solid var(--Color-Warning-Primary-Background-disabled, #a1a7b3);
+}
+
+/* Error filled */
+.chip--variant-filled.chip--type-error {
+  --chip-background: var(--Color-Error-Primary-Background-default, #ea0d11);
+  --chip-color: var(--Color-Error-Primary-Foreground-default, #ffffff);
+  --chip-border: var(--border-border-width-default, 1px) solid var(--Color-Error-Primary-Background-default, #ea0d11);
+}
+
+.chip--variant-filled.chip--type-error:hover:not(.chip--disabled) {
+  --chip-background: var(--Color-Error-Primary-Background-hover, #c00b0e);
+  --chip-border: var(--border-border-width-hover, 2px) solid var(--Color-Error-Primary-Background-hover, #c00b0e);
+}
+
+.chip--variant-filled.chip--type-error:active:not(.chip--disabled) {
+  --chip-background: var(--Color-Error-Primary-Background-active, #ab090c);
+  --chip-border: var(--border-border-width-active, 2px) solid var(--Color-Error-Primary-Background-active, #ab090c);
+}
+
+.chip--variant-filled.chip--type-error.chip--disabled {
+  --chip-background: var(--Color-Error-Primary-Background-disabled, #a1a7b3);
+  --chip-color: var(--Color-Error-Primary-Foreground-disabled, #ecedf0);
+  --chip-border: var(--border-border-width-disabled, 1px) solid var(--Color-Error-Primary-Background-disabled, #a1a7b3);
+}
+
+/* Info filled */
+.chip--variant-filled.chip--type-info {
+  --chip-background: var(--Color-Info-Primary-Background-default, #007bba);
+  --chip-color: var(--Color-Info-Primary-Foreground-default, #ffffff);
+  --chip-border: var(--border-border-width-default, 1px) solid var(--Color-Info-Primary-Background-default, #007bba);
+}
+
+.chip--variant-filled.chip--type-info:hover:not(.chip--disabled) {
+  --chip-background: var(--Color-Info-Primary-Background-hover, #006599);
+  --chip-border: var(--border-border-width-hover, 2px) solid var(--Color-Info-Primary-Background-hover, #006599);
+}
+
+.chip--variant-filled.chip--type-info:active:not(.chip--disabled) {
+  --chip-background: var(--Color-Info-Primary-Background-active, #005a88);
+  --chip-border: var(--border-border-width-active, 2px) solid var(--Color-Info-Primary-Background-active, #005a88);
+}
+
+.chip--variant-filled.chip--type-info.chip--disabled {
+  --chip-background: var(--Color-Info-Primary-Background-disabled, #a1a7b3);
+  --chip-color: var(--Color-Info-Primary-Foreground-disabled, #ecedf0);
+  --chip-border: var(--border-border-width-disabled, 1px) solid var(--Color-Info-Primary-Background-disabled, #a1a7b3);
+} 

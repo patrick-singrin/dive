@@ -1,0 +1,2 @@
+import{p as t,g as e,b as a}from"./p-BZCi0VCL.js";export{s as setNonce}from"./p-BZCi0VCL.js";var r=()=>{const e=import.meta.url;const a={};if(e!==""){a.resourcesUrl=new URL(".",e).href}return t(a)};r().then((async t=>{await e();return a([["p-e13a51b6",[[1,"dive-badge",{type:[1],text:[1]}]]]],t)}));
+//# sourceMappingURL=dive-components.esm.js.map

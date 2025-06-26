@@ -17,7 +17,7 @@ export const componentColorsStyles = css`
 }
 .category-title {
   font-size: 2rem;
-  font-weight: 700;
+  font-weight: 600;
   margin-bottom: var(--spacing-spacing-2);
   color: var(--Color-Base-Foreground-default);
   border-bottom: var(--border-border-width-default) solid var(--Color-Base-Border-default);

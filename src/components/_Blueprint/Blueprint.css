@@ -1,0 +1,393 @@
+/* Blueprint Component - Comprehensive CSS Reference Template */
+
+/* =====================
+   HOST CONFIGURATION
+   ===================== */
+:host {
+  /* CSS custom properties with design system variables */
+  /* Always include fallback values for shadow DOM compatibility */
+  
+  /* Background colors */
+  --blueprint-background: var(--Color-Primary-Primary-Background-default, #2563eb);
+  --blueprint-background-hover: var(--Color-Primary-Primary-Background-hover, #1d4ed8);
+  --blueprint-background-active: var(--Color-Primary-Primary-Background-pressed, #1e40af);
+  --blueprint-background-disabled: var(--Color-Base-Subtle-Background-default, #f5f5f5);
+  
+  /* Foreground colors */
+  --blueprint-color: var(--Color-Primary-Primary-Foreground-default, #ffffff);
+  --blueprint-color-hover: var(--Color-Primary-Primary-Foreground-hover, #ffffff);
+  --blueprint-color-active: var(--Color-Primary-Primary-Foreground-pressed, #ffffff);
+  --blueprint-color-disabled: var(--Color-Base-Subtle-Foreground-default, #6b7280);
+  
+  /* Border properties */
+  --blueprint-border: var(--border-border-width-default, 1px) solid transparent;
+  --blueprint-border-hover: var(--border-border-width-hover, 2px) solid var(--Color-Primary-Primary-Border-hover, #1d4ed8);
+  --blueprint-border-active: var(--border-border-width-hover, 2px) solid var(--Color-Primary-Primary-Border-pressed, #1e40af);
+  --blueprint-border-focus: var(--border-border-width-hover, 2px) solid var(--Color-Focus-default, #3b82f6);
+  --blueprint-border-disabled: var(--border-border-width-default, 1px) solid var(--Color-Base-Border-default, #e5e7eb);
+  
+  /* Spacing */
+  --blueprint-padding: var(--Spacing-2, 8px) var(--Spacing-4, 12px);
+  --blueprint-padding-small: var(--Spacing-1, 4px) var(--Spacing-3, 10px);
+  --blueprint-padding-large: var(--Spacing-3, 10px) var(--Spacing-5, 16px);
+  --blueprint-gap: var(--Spacing-2, 8px);
+  
+  /* Border radius */
+  --blueprint-border-radius: var(--border-border-radius-md, 8px);
+  --blueprint-border-radius-small: var(--border-border-radius-sm, 4px);
+  --blueprint-border-radius-large: var(--border-border-radius-lg, 16px);
+  
+  /* Typography */
+  --blueprint-font-size: 14px;
+  --blueprint-font-size-small: 12px;
+  --blueprint-font-size-large: 16px;
+  --blueprint-font-weight: 500;
+  --blueprint-line-height: 1.43;
+  --blueprint-letter-spacing: 0;
+  
+  /* Shadows */
+  --blueprint-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --blueprint-shadow-hover: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  --blueprint-shadow-active: 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --blueprint-shadow-focus: 0 0 0 3px rgba(59, 130, 246, 0.1);
+  
+  /* Transitions */
+  --blueprint-transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  --blueprint-transition-fast: all 0.15s cubic-bezier(0.4, 0, 0.2, 1);
+  --blueprint-transition-slow: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  
+  /* Z-index */
+  --blueprint-z-index: 1;
+  --blueprint-z-index-focus: 10;
+  
+  /* Explicit inheritance for complex variables (required for shadow DOM) */
+  --Spacing-1: var(--Spacing-1, 4px);
+  --Spacing-2: var(--Spacing-2, 8px);
+  --Spacing-3: var(--Spacing-3, 10px);
+  --Spacing-4: var(--Spacing-4, 12px);
+  --Spacing-5: var(--Spacing-5, 16px);
+  --border-border-radius-sm: var(--border-border-radius-sm, 4px);
+  --border-border-radius-md: var(--border-border-radius-md, 8px);
+  --border-border-radius-lg: var(--border-border-radius-lg, 16px);
+  --border-border-width-default: var(--border-border-width-default, 1px);
+  --border-border-width-hover: var(--border-border-width-hover, 2px);
+  
+  /* Host display properties */
+  display: inline-block;
+  box-sizing: border-box;
+}
+
+/* =====================
+   BASE COMPONENT
+   ===================== */
+.blueprint {
+  /* Layout */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  
+  /* Sizing */
+  min-height: 36px;
+  min-width: auto;
+  box-sizing: border-box;
+  
+  /* Spacing */
+  padding: var(--blueprint-padding);
+  gap: var(--blueprint-gap);
+  
+  /* Appearance */
+  background-color: var(--blueprint-background);
+  color: var(--blueprint-color);
+  border: var(--blueprint-border);
+  border-radius: var(--blueprint-border-radius);
+  box-shadow: var(--blueprint-shadow);
+  
+  /* Typography */
+  font-family: inherit;
+  font-size: var(--blueprint-font-size);
+  font-weight: var(--blueprint-font-weight);
+  line-height: var(--blueprint-line-height);
+  letter-spacing: var(--blueprint-letter-spacing);
+  text-align: center;
+  text-decoration: none;
+  white-space: nowrap;
+  
+  /* Interaction */
+  cursor: pointer;
+  user-select: none;
+  outline: none;
+  transition: var(--blueprint-transition);
+  
+  /* Focus management */
+  z-index: var(--blueprint-z-index);
+}
+
+/* =====================
+   VARIANT STYLES
+   ===================== */
+
+/* Secondary variant */
+.blueprint--variant-secondary {
+  --blueprint-background: var(--Color-Base-Background-default, #ffffff);
+  --blueprint-background-hover: var(--Color-Base-Background-hover, #f9fafb);
+  --blueprint-background-active: var(--Color-Base-Background-pressed, #f3f4f6);
+  --blueprint-color: var(--Color-Base-Foreground-default, #111827);
+  --blueprint-color-hover: var(--Color-Base-Foreground-hover, #111827);
+  --blueprint-color-active: var(--Color-Base-Foreground-pressed, #111827);
+  --blueprint-border: var(--border-border-width-default, 1px) solid var(--Color-Base-Border-default, #e5e7eb);
+  --blueprint-border-hover: var(--border-border-width-hover, 2px) solid var(--Color-Base-Border-hover, #d1d5db);
+  --blueprint-border-active: var(--border-border-width-hover, 2px) solid var(--Color-Base-Border-pressed, #9ca3af);
+}
+
+/* Success variant */
+.blueprint--variant-success {
+  --blueprint-background: var(--Color-Success-Primary-Background-default, #16a34a);
+  --blueprint-background-hover: var(--Color-Success-Primary-Background-hover, #15803d);
+  --blueprint-background-active: var(--Color-Success-Primary-Background-pressed, #166534);
+  --blueprint-color: var(--Color-Success-Primary-Foreground-default, #ffffff);
+  --blueprint-border-focus: var(--border-border-width-hover, 2px) solid var(--Color-Success-Primary-Border-focus, #16a34a);
+}
+
+/* Warning variant */
+.blueprint--variant-warning {
+  --blueprint-background: var(--Color-Warning-Primary-Background-default, #eab308);
+  --blueprint-background-hover: var(--Color-Warning-Primary-Background-hover, #d97706);
+  --blueprint-background-active: var(--Color-Warning-Primary-Background-pressed, #b45309);
+  --blueprint-color: var(--Color-Warning-Primary-Foreground-default, #000000);
+  --blueprint-border-focus: var(--border-border-width-hover, 2px) solid var(--Color-Warning-Primary-Border-focus, #eab308);
+}
+
+/* Error variant */
+.blueprint--variant-error {
+  --blueprint-background: var(--Color-Error-Primary-Background-default, #dc2626);
+  --blueprint-background-hover: var(--Color-Error-Primary-Background-hover, #b91c1c);
+  --blueprint-background-active: var(--Color-Error-Primary-Background-pressed, #991b1b);
+  --blueprint-color: var(--Color-Error-Primary-Foreground-default, #ffffff);
+  --blueprint-border-focus: var(--border-border-width-hover, 2px) solid var(--Color-Error-Primary-Border-focus, #dc2626);
+}
+
+/* Info variant */
+.blueprint--variant-info {
+  --blueprint-background: var(--Color-Info-Primary-Background-default, #0ea5e9);
+  --blueprint-background-hover: var(--Color-Info-Primary-Background-hover, #0284c7);
+  --blueprint-background-active: var(--Color-Info-Primary-Background-pressed, #0369a1);
+  --blueprint-color: var(--Color-Info-Primary-Foreground-default, #ffffff);
+  --blueprint-border-focus: var(--border-border-width-hover, 2px) solid var(--Color-Info-Primary-Border-focus, #0ea5e9);
+}
+
+/* =====================
+   SIZE VARIANTS
+   ===================== */
+
+.blueprint--size-small {
+  --blueprint-padding: var(--blueprint-padding-small);
+  --blueprint-font-size: var(--blueprint-font-size-small);
+  --blueprint-border-radius: var(--blueprint-border-radius-small);
+  min-height: 28px;
+}
+
+.blueprint--size-large {
+  --blueprint-padding: var(--blueprint-padding-large);
+  --blueprint-font-size: var(--blueprint-font-size-large);
+  --blueprint-border-radius: var(--blueprint-border-radius-large);
+  min-height: 44px;
+}
+
+/* =====================
+   CONTENT TYPE VARIANTS
+   ===================== */
+
+.blueprint--content-icon {
+  padding: var(--Spacing-2, 8px);
+  min-width: 36px;
+  justify-content: center;
+}
+
+.blueprint--content-text-icon {
+  padding-left: var(--Spacing-3, 10px);
+}
+
+.blueprint--content-avatar {
+  padding-left: var(--Spacing-2, 8px);
+}
+
+/* =====================
+   STATE STYLES
+   ===================== */
+
+/* Hover state */
+.blueprint--state-hover,
+.blueprint:hover:not(.blueprint--state-disabled) {
+  background-color: var(--blueprint-background-hover);
+  color: var(--blueprint-color-hover);
+  border: var(--blueprint-border-hover);
+  box-shadow: var(--blueprint-shadow-hover);
+  transform: translateY(-1px);
+}
+
+/* Active state */
+.blueprint--state-active,
+.blueprint:active:not(.blueprint--state-disabled) {
+  background-color: var(--blueprint-background-active);
+  color: var(--blueprint-color-active);
+  border: var(--blueprint-border-active);
+  box-shadow: var(--blueprint-shadow-active);
+  transform: translateY(0);
+}
+
+/* Focus state */
+.blueprint--state-focused,
+.blueprint:focus:not(.blueprint--state-disabled),
+.blueprint:focus-visible:not(.blueprint--state-disabled) {
+  border: var(--blueprint-border-focus);
+  box-shadow: var(--blueprint-shadow-focus);
+  z-index: var(--blueprint-z-index-focus);
+  outline: none;
+}
+
+/* Disabled state */
+.blueprint--state-disabled,
+.blueprint:disabled {
+  background-color: var(--blueprint-background-disabled);
+  color: var(--blueprint-color-disabled);
+  border: var(--blueprint-border-disabled);
+  box-shadow: none;
+  cursor: not-allowed;
+  opacity: 0.6;
+  pointer-events: none;
+  transform: none;
+}
+
+/* =====================
+   CONDITIONAL MODIFIERS
+   ===================== */
+
+.blueprint--has-icon {
+  gap: var(--Spacing-2, 8px);
+}
+
+.blueprint--has-avatar {
+  gap: var(--Spacing-2, 8px);
+}
+
+.blueprint--required {
+  position: relative;
+}
+
+.blueprint--required::after {
+  content: "*";
+  color: var(--Color-Error-Primary-Foreground-default, #dc2626);
+  margin-left: var(--Spacing-1, 4px);
+}
+
+/* =====================
+   CONTENT ELEMENTS
+   ===================== */
+
+.blueprint__icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  font-size: 1em;
+  line-height: 1;
+}
+
+.blueprint__avatar {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  overflow: hidden;
+  font-size: 12px;
+  line-height: 1;
+}
+
+.blueprint__text-container {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--Spacing-1, 4px);
+}
+
+.blueprint__text {
+  display: inline-block;
+  font-weight: inherit;
+  line-height: inherit;
+}
+
+.blueprint__description {
+  display: inline-block;
+  font-size: 0.875em;
+  opacity: 0.8;
+  line-height: 1.2;
+}
+
+/* =====================
+   RESPONSIVE DESIGN
+   ===================== */
+
+@media (max-width: 768px) {
+  .blueprint {
+    /* Adjust sizing for mobile */
+    min-height: 44px; /* Larger touch targets */
+  }
+  
+  .blueprint--size-small {
+    min-height: 36px;
+  }
+  
+  .blueprint--size-large {
+    min-height: 48px;
+  }
+}
+
+/* =====================
+   HIGH CONTRAST MODE
+   ===================== */
+
+@media (prefers-contrast: high) {
+  .blueprint {
+    --blueprint-border: var(--border-border-width-hover, 2px) solid currentColor;
+  }
+  
+  .blueprint--state-focused,
+  .blueprint:focus:not(.blueprint--state-disabled) {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+}
+
+/* =====================
+   REDUCED MOTION
+   ===================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .blueprint {
+    --blueprint-transition: none;
+    --blueprint-transition-fast: none;
+    --blueprint-transition-slow: none;
+  }
+  
+  .blueprint--state-hover,
+  .blueprint:hover:not(.blueprint--state-disabled) {
+    transform: none;
+  }
+}
+
+/* =====================
+   PRINT STYLES
+   ===================== */
+
+@media print {
+  .blueprint {
+    background: transparent !important;
+    color: black !important;
+    border: 1px solid black !important;
+    box-shadow: none !important;
+  }
+} 

@@ -1,81 +1,100 @@
-# Guidelines: Creating New CSS Components & Stories
+# Component Development - Quick Start
 
-## Workflow (Recommended)
+**⚠️ IMPORTANT**: This design system uses **Stencil** framework (not Lit). 
 
-1. **Edit your component's `.css` file** in `src/components/` (this is the source of truth).
-2. **Run the watcher** to auto-generate Lit CSS files:
-   ```sh
-   npm run watch:lit-css
-   ```
-   The watcher will keep Lit CSS files (e.g., `ComponentName.styles.ts`) in sync with your `.css` files.
-3. **Import the generated Lit styles** in your component:
-   ```ts
-   import { componentNameStyles } from './ComponentName.styles';
-   export class ComponentName extends LitElement {
-     static styles = [componentNameStyles];
-     // ...
-   }
-   ```
+For the **complete component development guide**, see [COMPONENT_DEVELOPMENT.md](COMPONENT_DEVELOPMENT.md).
 
----
+## 🚀 Quick Start
 
-## 1. File Structure
+### 1. Create New Component
 
-Each component should have its own folder:
-
-```
-src/components/ComponentName/
-  ComponentName.ts
-  ComponentName.css
-  ComponentName.styles.ts
-  ComponentName.stories.ts
+```bash
+mkdir src/components/MyComponent
+touch src/components/MyComponent/MyComponent.tsx
+touch src/components/MyComponent/MyComponent.css  
+touch src/components/MyComponent/MyComponent.stories.ts
 ```
 
-## 2. Using Design Tokens
+### 2. Basic Component Structure
 
-- Always use CSS variables for color, spacing, border-radius, etc.
-- Reference tokens from the design system (e.g., `var(--border-border-radius-lg)`).
+```tsx
+// MyComponent.tsx
+import { Component, Prop, h } from '@stencil/core';
 
-## 3. Shadow DOM & CSS Variables
+@Component({
+  tag: 'dive-my-component',
+  styleUrl: 'MyComponent.css',
+  shadow: true,
+})
+export class MyComponent {
+  @Prop() variant: string = 'default';
+  
+  render() {
+    return h('div', { 
+      class: `component component--${this.variant}` 
+    }, 'My Component');
+  }
+}
+```
 
-**Automatic CSS Variable Forwarding**
+### 3. CSS with Design Tokens
 
-All CSS variables used in your component's styles (i.e., any `var(--...)` in your `.css` file) are now automatically forwarded to the shadow DOM. This means you do **not** need to manually forward variables in your Lit component—any variable you use in your CSS will be available in the shadow DOM and work as expected.
+```css
+/* MyComponent.css */
+:host {
+  --component-bg: var(--Color-Base-Background-default, #fff);
+  --component-text: var(--Color-Base-Foreground-default, #333);
+  /* Explicit inheritance for shadow DOM */
+  --Color-Base-Background-default: var(--Color-Base-Background-default, #fff);
+}
 
-*This automation is now the default and recommended approach for all new components.*
+.component {
+  background: var(--component-bg);
+  color: var(--component-text);
+  padding: var(--Spacing-2, 8px);
+  border-radius: var(--border-border-radius-md, 8px);
+}
+```
 
-## 4. Storybook Integration
+### 4. Storybook Integration
 
-- Import the component and its CSS in the story file.
-- Use real design tokens in stories to ensure consistency.
+```ts
+// MyComponent.stories.ts
+import { html } from 'lit';
+import type { Meta, StoryObj } from '@storybook/web-components';
+import { defineCustomElement } from '../../../dist/components/dive-my-component';
 
-## 5. Common Pitfalls & Fixes
+defineCustomElement();
 
-- **Shadow DOM variable issues:** This is now handled automatically.
-- **CSS specificity:** Prefer component styles over global overrides.
-- **Storybook style conflicts:** Use unique class names and avoid global selectors.
+const meta: Meta = {
+  title: 'Components/MyComponent',
+  component: 'dive-my-component',
+  render: ({ variant }) => html`<dive-my-component variant="${variant}"></dive-my-component>`,
+};
 
-## 6. Checklist
+export default meta;
+```
 
-- [ ] Component folder created
-- [ ] Uses design tokens
-- [ ] CSS variables used in CSS (auto-forwarded)
-- [ ] Storybook story created
-- [ ] Manual test in Storybook
+### 5. Build & Test
+
+```bash
+npm run build      # Build Stencil components
+npm run storybook  # Test in Storybook
+```
+
+## ✅ Key Benefits of Stencil
+
+- **Natural CSS Variable Inheritance**: No manual forwarding needed
+- **Scale Compatibility**: Same framework as Scale Design System  
+- **Simplified Development**: 75% less code than previous Lit approach
+- **Automatic Registration**: Components self-register
+- **TypeScript Integration**: Built-in type definitions
+
+## 📚 Complete Documentation
+
+- **[COMPONENT_DEVELOPMENT.md](COMPONENT_DEVELOPMENT.md)**: Full development guide with patterns, troubleshooting, and best practices
+- **[STENCIL_MIGRATION_SUCCESS.md](../STENCIL_MIGRATION_SUCCESS.md)**: Migration details and benefits
 
 ---
 
-## 7. Troubleshooting
-
-If a style is not applied, check:
-- Is the variable available in the shadow DOM? (Should be automatic)
-- Is there a more specific selector overriding your style?
-- Is Storybook injecting conflicting styles?
-
----
-
-## 8. Resources
-
-- [Lit documentation](https://lit.dev/docs/)
-- [Storybook documentation](https://storybook.js.org/docs/react/get-started/introduction)
-- [Design Tokens W3C](https://design-tokens.github.io/community-group/format/) 
+*This quick start covers the basics. See the complete documentation for advanced patterns, CSS variable handling, and troubleshooting.* 

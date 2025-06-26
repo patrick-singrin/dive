@@ -1,0 +1,63 @@
+/* Badge Component - Following Scale Pattern with Dive Tokens */
+
+:host {
+  /* Default badge styling using dive design tokens */
+  --badge-background: var(--Color-Base-Subtle-Background-default, #f5f5f5);
+  --badge-color: var(--Color-Base-Subtle-Foreground-default, #333);
+  --badge-padding: var(--Spacing-1, 4px) var(--Spacing-4, 12px);
+  --badge-border-radius: var(--border-border-radius-full, 999px);
+  --badge-border: var(--border-border-width-default, 1px) solid transparent;
+  --badge-font-size: 12px;
+  --badge-font-weight: 500;
+  --badge-line-height: 1.33;
+  
+  /* Inherit CSS variables from document for shadow DOM */
+  --Spacing-1: var(--Spacing-1, 4px);
+  --Spacing-4: var(--Spacing-4, 12px);
+  --border-border-radius-full: var(--border-border-radius-full, 999px);
+  --border-border-width-default: var(--border-border-width-default, 1px);
+}
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: var(--badge-padding);
+  border-radius: var(--badge-border-radius);
+  border: var(--badge-border);
+  font-size: var(--badge-font-size);
+  font-weight: var(--badge-font-weight);
+  line-height: var(--badge-line-height);
+  white-space: nowrap;
+  cursor: default;
+  box-sizing: border-box;
+  user-select: none;
+  background-color: var(--badge-background);
+  color: var(--badge-color);
+}
+
+/* Badge Type Variants */
+.badge--type-primary {
+  --badge-background: var(--Color-Primary-Primary-Background-default, #2563eb);
+  --badge-color: var(--Color-Primary-Primary-Foreground-default, #fff);
+}
+
+.badge--type-success {
+  --badge-background: var(--Color-Success-Primary-Background-default, #16a34a);
+  --badge-color: var(--Color-Success-Primary-Foreground-default, #fff);
+}
+
+.badge--type-warning {
+  --badge-background: var(--Color-Warning-Primary-Background-default, #eab308);
+  --badge-color: var(--Color-Warning-Primary-Foreground-default, #000);
+}
+
+.badge--type-error {
+  --badge-background: var(--Color-Error-Primary-Background-default, #dc2626);
+  --badge-color: var(--Color-Error-Primary-Foreground-default, #fff);
+}
+
+.badge--type-info {
+  --badge-background: var(--Color-Info-Primary-Background-default, #0ea5e9);
+  --badge-color: var(--Color-Info-Primary-Foreground-default, #fff);
+} 

@@ -4,7 +4,7 @@
 
 This set of Node.js scripts generates CSS custom properties (variables) from Figma-exported design token JSON files. It enables scalable, theme- and mode-aware CSS variable usage for developers, preserving Figma naming conventions and supporting multiple themes and color modes.
 
-**Note:** For Lit component CSS automation (converting .css files to Lit styles), see the main [README.md](../README.md) and use the watcher script (`npm run watch:lit-css`). This is a separate process from design token generation.
+**Note:** This system generates CSS variables for use with Stencil components. Stencil naturally inherits CSS variables in shadow DOM, so no additional automation is needed for component styles.
 
 ## How CSS Variable Generation Works
 

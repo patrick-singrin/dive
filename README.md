@@ -18,14 +18,18 @@ A scalable, theme-aware system for managing design tokens and generating CSS cus
    ```
    _See [scripts/README.md](scripts/README.md) for advanced options._
 
-3. **Component styles workflow**
-   - Edit your component's `.css` file in `src/components/` (this is the source of truth).
-   - Run the watcher to auto-generate Lit CSS files:
+3. **Component development workflow**
+   - Create Stencil components in `src/components/` using TypeScript (`.tsx` files).
+   - Use CSS files directly - no build step needed for styles.
+   - Build components:
      ```sh
-     npm run watch:lit-css
+     npm run build
      ```
-   - The watcher will keep Lit CSS files (e.g., `ComponentName.styles.ts`) in sync with your `.css` files.
-   - Import the generated Lit styles in your component as shown in [src/components/README.md](src/components/README.md).
+   - Test in Storybook:
+     ```sh
+     npm run storybook
+     ```
+   - See [src/components/COMPONENT_DEVELOPMENT.md](src/components/COMPONENT_DEVELOPMENT.md) for complete guide.
 
 4. **Use in your app**
 ---
@@ -108,36 +112,54 @@ A scalable, theme-aware system for managing design tokens and generating CSS cus
 - Uncomment the relevant line in `scripts/generate-css-variables.cjs`.
 - Ensure all references in `layouts/layout.json` are mapped in your mode files.
 
-#### 🎨 Lit Component Styles Automation
+#### 🎨 Stencil Component Development
 
-To ensure styles work with Lit's shadow DOM, use the automated script to convert component CSS files to Lit `css` templates:
+Components are built using Stencil framework for natural CSS variable inheritance and Scale Design System compatibility:
 
-1. **Edit your component's CSS file** (e.g., `src/components/Button/Button.css`).
-2. **Run the conversion script:**
-   ```sh
-   node scripts/convert-css-to-lit.cjs
-   ```
-   This will generate a corresponding `Button.styles.ts` file exporting a Lit `css` template.
-3. **Import and use the generated styles in your component:**
-   ```ts
-   import { buttonStyles } from './Button.styles';
-   export class MyButton extends LitElement {
-     static styles = [buttonStyles];
-     // ...
+1. **Create a new component** (e.g., `src/components/Button/Button.tsx`):
+   ```tsx
+   import { Component, Prop, h } from '@stencil/core';
+   
+   @Component({
+     tag: 'dive-button',
+     styleUrl: 'Button.css',
+     shadow: true,
+   })
+   export class Button {
+     @Prop() variant: string = 'primary';
+     render() {
+       return h('button', { class: `button button--${this.variant}` }, 'Button');
+     }
    }
    ```
 
-- This workflow ensures your styles are encapsulated and always work in Storybook and all apps.
-- The script will process all `.css` files in `src/components/**` and generate `.styles.ts` files as needed.
+2. **Create CSS with design tokens** (`Button.css`):
+   ```css
+   :host {
+     --button-bg: var(--Color-Primary-Primary-Background-default, #2563eb);
+   }
+   .button { background: var(--button-bg); }
+   ```
+
+3. **Build and test:**
+   ```sh
+   npm run build      # Compile Stencil components
+   npm run storybook  # Test in Storybook
+   ```
+
+- CSS variables are naturally inherited in Stencil's shadow DOM
+- No manual CSS variable forwarding needed
+- Automatic component registration and TypeScript definitions
 
 ---
 
 ### 📚 Storybook Integration
 
-- Explore all color variables visually in Storybook:  
-  `src/stories/componentColors.stories.ts`  
-  _Switch between color modes to preview all states and categories._
-- For Storybook configuration and advanced usage, see `src/stories/Configure.mdx` and [Storybook Docs](https://storybook.js.org/).
+- **Design System Integration**: Storybook UI automatically adapts to theme modes using design system background variables
+- **Component Preview**: Explore all color variables visually in ComponentColors story
+- **Theme Switching**: Use toolbar to switch between light/dark/high-contrast modes
+- **Component Testing**: All components automatically work with theme switching
+- For Storybook configuration, see [src/components/COMPONENT_DEVELOPMENT.md](src/components/COMPONENT_DEVELOPMENT.md) and [Storybook Docs](https://storybook.js.org/).
 
 ---
 
@@ -169,9 +191,9 @@ To ensure styles work with Lit's shadow DOM, use the automated script to convert
 
 ## Component Development Guidelines
 
-For best practices and troubleshooting when creating new CSS components and their stories, see [src/components/README.md](src/components/README.md).
+For complete best practices, patterns, and troubleshooting when creating new Stencil components, see [src/components/COMPONENT_DEVELOPMENT.md](src/components/COMPONENT_DEVELOPMENT.md).
 
-**Note:** CSS variables used in your component's styles are now automatically forwarded to the shadow DOM. You do not need to manually forward variables—just use them in your CSS and they will be available in your Lit component.
+**Framework Migration**: The design system has been migrated from Lit to Stencil for improved CSS variable handling, Scale Design System compatibility, and simplified development experience. See [STENCIL_MIGRATION_SUCCESS.md](STENCIL_MIGRATION_SUCCESS.md) for details.
 
 ---
 
