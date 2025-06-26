@@ -1,4 +1,4 @@
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/html';
 import { defineCustomElement } from '../../../dist/components/dive-badge';
 
 // Register the Badge component

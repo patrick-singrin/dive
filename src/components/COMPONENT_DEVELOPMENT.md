@@ -136,8 +136,7 @@ export class Badge {
 
 ```typescript
 // Badge.stories.ts
-import { html } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/html';
 import { defineCustomElement } from '../../../dist/components/dive-badge';
 
 // Register the component
@@ -146,7 +145,7 @@ defineCustomElement();
 const meta: Meta = {
   title: 'Components/Badge',
   component: 'dive-badge',
-  render: ({ type, text }) => html`<dive-badge type="${type}" text="${text}"></dive-badge>`,
+  render: ({ type, text }) => `<dive-badge type="${type}" text="${text}"></dive-badge>`,
 };
 
 export default meta;
@@ -316,7 +315,7 @@ All project documentation has been updated to reflect the Stencil migration:
 
 - ✅ **README.md**: Updated quickstart and component workflows
 - ✅ **src/components/README.md**: Complete rewrite for Stencil patterns  
-- ✅ **scripts/README.md**: Removed outdated Lit CSS automation references
+- ✅ **scripts/README.md**: Updated to clarify CSS variable generation for Stencil components
 - ✅ **COMPONENT_DEVELOPMENT.md**: Comprehensive Stencil guide (this file)
 - ✅ **STENCIL_MIGRATION_SUCCESS.md**: Migration summary and benefits
 

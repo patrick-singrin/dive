@@ -168,8 +168,7 @@ export class ComponentName {
 
 #### Storybook Integration
 ```ts
-import { html } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/html';
 import { defineCustomElement } from '../../../dist/components/dive-component-name';
 
 // Register the component (required for Stencil)
@@ -198,10 +197,10 @@ const meta: Meta = {
     text: 'Component Text',
     disabled: false,
   },
-  render: (args) => html`<dive-component-name 
+  render: (args) => `<dive-component-name 
     type="${args.type}" 
     text="${args.text}" 
-    ?disabled="${args.disabled}">
+    ${args.disabled ? 'disabled' : ''}>
   </dive-component-name>`,
 };
 

@@ -60,8 +60,7 @@ export class MyComponent {
 
 ```ts
 // MyComponent.stories.ts
-import { html } from 'lit';
-import type { Meta, StoryObj } from '@storybook/web-components';
+import type { Meta, StoryObj } from '@storybook/html';
 import { defineCustomElement } from '../../../dist/components/dive-my-component';
 
 defineCustomElement();
@@ -69,7 +68,7 @@ defineCustomElement();
 const meta: Meta = {
   title: 'Components/MyComponent',
   component: 'dive-my-component',
-  render: ({ variant }) => html`<dive-my-component variant="${variant}"></dive-my-component>`,
+  render: ({ variant }) => `<dive-my-component variant="${variant}"></dive-my-component>`,
 };
 
 export default meta;
@@ -89,6 +88,7 @@ npm run storybook  # Test in Storybook
 - **Simplified Development**: 75% less code than previous Lit approach
 - **Automatic Registration**: Components self-register
 - **TypeScript Integration**: Built-in type definitions
+- **No Lit Dependencies**: Pure Stencil + HTML framework for Storybook
 
 ## 📚 Complete Documentation
 

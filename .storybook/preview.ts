@@ -1,4 +1,4 @@
-import type { Preview } from '@storybook/web-components'
+import type { Preview } from '@storybook/html'
 import '../src/index.css' // Adjust if your global CSS is elsewhere
 import { withThemeProvider } from './theme-provider';
 
