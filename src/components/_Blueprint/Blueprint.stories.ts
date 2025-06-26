@@ -1,4 +1,3 @@
-import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { defineCustomElement } from '../../../dist/components/dive-blueprint';
 
@@ -162,17 +161,17 @@ This component serves as a reference template for creating new components. Copy 
     value: '',
     ariaLabel: '',
   },
-  render: (args) => html`
+  render: (args) => `
     <dive-blueprint 
       variant="${args.variant}"
       size="${args.size}"
       content="${args.content}"
       text="${args.text}"
       description="${args.description}"
-      ?disabled="${args.disabled}"
-      ?has-icon="${args.hasIcon}"
-      ?has-avatar="${args.hasAvatar}"
-      ?required="${args.required}"
+      disabled
+      has-icon
+      has-avatar
+      required
       name="${args.name}"
       value="${args.value}"
       aria-label="${args.ariaLabel}"
@@ -218,7 +217,7 @@ export const Playground: Story = {
 
 export const Variants: Story = {
   name: 'All Variants',
-  render: () => html`
+  render: () => `
     <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: center;">
       <dive-blueprint variant="primary" text="Primary"></dive-blueprint>
       <dive-blueprint variant="secondary" text="Secondary"></dive-blueprint>
@@ -243,7 +242,7 @@ export const Variants: Story = {
 
 export const Sizes: Story = {
   name: 'All Sizes',
-  render: () => html`
+  render: () => `
     <div style="display: flex; gap: 16px; align-items: center;">
       <dive-blueprint size="small" text="Small"></dive-blueprint>
       <dive-blueprint size="medium" text="Medium"></dive-blueprint>
@@ -265,7 +264,7 @@ export const Sizes: Story = {
 
 export const ContentTypes: Story = {
   name: 'Content Types',
-  render: () => html`
+  render: () => `
     <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: center;">
       <dive-blueprint content="text" text="Text Only"></dive-blueprint>
       <dive-blueprint content="icon" has-icon="true">
@@ -294,7 +293,7 @@ export const ContentTypes: Story = {
 
 export const States: Story = {
   name: 'Interactive States',
-  render: () => html`
+  render: () => `
     <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: center;">
       <dive-blueprint text="Default"></dive-blueprint>
       <dive-blueprint text="Disabled" disabled="true"></dive-blueprint>
@@ -320,7 +319,7 @@ export const States: Story = {
 
 export const WithDescription: Story = {
   name: 'With Description Text',
-  render: () => html`
+  render: () => `
     <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: flex-start;">
       <dive-blueprint 
         text="Action Button" 
@@ -346,7 +345,7 @@ export const WithDescription: Story = {
 
 export const FormExample: Story = {
   name: 'Form Integration',
-  render: () => html`
+  render: () => `
     <div style="display: flex; gap: 16px; flex-wrap: wrap; align-items: center;">
       <dive-blueprint 
         variant="primary"
@@ -385,7 +384,7 @@ export const FormExample: Story = {
 
 export const Accessibility: Story = {
   name: 'Accessibility Features',
-  render: () => html`
+  render: () => `
     <div style="display: flex; flex-direction: column; gap: 16px; max-width: 400px;">
       <div>
         <h3 style="margin: 0 0 8px 0; font-size: 14px;">Keyboard Navigation</h3>
@@ -438,7 +437,7 @@ export const Accessibility: Story = {
 
 export const DesignSystemTokens: Story = {
   name: 'Design System Integration',
-  render: () => html`
+  render: () => `
     <div style="display: flex; flex-direction: column; gap: 24px;">
       <div>
         <h3 style="margin: 0 0 12px 0;">Color Tokens</h3>
@@ -484,7 +483,7 @@ export const DesignSystemTokens: Story = {
 
 export const EventHandling: Story = {
   name: 'Event Handling',
-  render: () => html`
+  render: () => `
     <div style="display: flex; flex-direction: column; gap: 16px; max-width: 400px;">
       <div>
         <h3 style="margin: 0 0 8px 0; font-size: 14px;">Custom Events</h3>
@@ -530,7 +529,7 @@ export const EventHandling: Story = {
 
 export const ResponsiveDesign: Story = {
   name: 'Responsive Behavior',
-  render: () => html`
+  render: () => `
     <div style="display: flex; flex-direction: column; gap: 16px;">
       <div>
         <h3 style="margin: 0 0 8px 0; font-size: 14px;">Desktop View</h3>

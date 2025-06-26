@@ -1,4 +1,3 @@
-import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { defineCustomElement } from '../../../dist/components/dive-badge';
 
@@ -20,7 +19,7 @@ const meta: Meta = {
       control: { type: 'text' },
     },
   },
-  render: ({ type, text }) => html`<dive-badge type="${type}" text="${text}"></dive-badge>`,
+  render: ({ type, text }) => `<dive-badge type="${type}" text="${text}"></dive-badge>`,
 };
 
 export default meta;

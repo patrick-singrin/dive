@@ -1,12 +1,11 @@
 // @ts-ignore
 import './ComponentColors.css';
 import './ComponentColors';
-import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 
 const meta: Meta = {
   title: 'Components/ComponentColors',
-  render: () => html`<component-colors></component-colors>`,
+  render: () => `<component-colors></component-colors>`,
   parameters: {
     layout: 'fullscreen',
     docs: {

@@ -1,4 +1,3 @@
-import { html } from 'lit';
 import type { Meta, StoryObj } from '@storybook/web-components';
 import { defineCustomElement } from '../../../dist/components/dive-chip';
 
@@ -32,7 +31,7 @@ const meta: Meta = {
     },
   },
   render: ({ type, variant, text, disabled }) => 
-    html`<dive-chip type="${type}" variant="${variant}" text="${text}" ?disabled="${disabled}"></dive-chip>`,
+    `<dive-chip type="${type}" variant="${variant}" text="${text}" ${disabled ? 'disabled' : ''}></dive-chip>`,
 };
 
 export default meta;
@@ -148,7 +147,7 @@ export const Disabled: Story = {
 
 // Showcase all outline variants
 export const AllOutlineVariants: Story = {
-  render: () => html`
+  render: () => `
     <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
       <dive-chip type="base" variant="outline" text="Base"></dive-chip>
       <dive-chip type="primary" variant="outline" text="Primary"></dive-chip>
@@ -169,7 +168,7 @@ export const AllOutlineVariants: Story = {
 
 // Showcase all filled variants
 export const AllFilledVariants: Story = {
-  render: () => html`
+  render: () => `
     <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
       <dive-chip type="base" variant="filled" text="Base"></dive-chip>
       <dive-chip type="primary" variant="filled" text="Primary"></dive-chip>
@@ -190,7 +189,7 @@ export const AllFilledVariants: Story = {
 
 // Show comparison between outline and filled
 export const VariantComparison: Story = {
-  render: () => html`
+  render: () => `
     <div style="display: flex; flex-direction: column; gap: 16px;">
       <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
         <h4 style="margin: 0; width: 100%; font-size: 14px; color: #666;">Outline</h4>
@@ -223,7 +222,7 @@ export const VariantComparison: Story = {
 
 // Show disabled states for both variants
 export const AllDisabled: Story = {
-  render: () => html`
+  render: () => `
     <div style="display: flex; flex-direction: column; gap: 16px;">
       <div style="display: flex; flex-wrap: wrap; gap: 12px; align-items: center;">
         <h4 style="margin: 0; width: 100%; font-size: 14px; color: #666;">Outline Disabled</h4>
