@@ -11,7 +11,7 @@
     "test": "stencil test --spec",
     "test:watch": "stencil test --spec --watchAll",
     "storybook": "npm run build && storybook dev -p 6006",
-    "build-storybook": "storybook build",
+    "build-storybook": "npm run build && storybook build",
     "dev": "npm run start"
   },
   "devDependencies": {
