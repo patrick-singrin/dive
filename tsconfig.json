@@ -25,5 +25,5 @@
     "jsxImportSource": "@stencil/core"
   },
   "include": ["src"],
-  "exclude": ["**/*.cjs", "**/*.mjs"]
+  "exclude": ["**/*.cjs", "**/*.mjs", "**/*.stories.ts"]
 }
