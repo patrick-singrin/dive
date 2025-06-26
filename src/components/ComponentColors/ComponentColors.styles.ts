@@ -18,9 +18,9 @@ export const componentColorsStyles = css`
 .category-title {
   font-size: 2rem;
   font-weight: 700;
-  margin-bottom: 24px;
+  margin-bottom: var(--spacing-spacing-2);
   color: var(--Color-Base-Foreground-default);
-  border-bottom: 2px solid var(--Color-Primary-Primary-Background-default);
+  border-bottom: var(--border-border-width-default) solid var(--Color-Base-Border-default);
   padding-bottom: 8px;
 }
 .subcategory {

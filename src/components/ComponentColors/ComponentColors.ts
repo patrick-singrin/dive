@@ -97,16 +97,31 @@ function createColorSwatch(variableName: string, label: string, isText: boolean 
   `;
 }
 
+// Utility to extract all CSS variable names from the Lit styles string
+function extractCssVariablesFromStyles(styles: string): string[] {
+  const regex = /var\((--[\w-]+)[^)]*\)/g;
+  const variables = new Set<string>();
+  let match;
+  while ((match = regex.exec(styles))) {
+    variables.add(match[1]);
+  }
+  return Array.from(variables);
+}
+
 export class ComponentColors extends LitElement {
   static styles = [componentColorsStyles];
 
   connectedCallback() {
     super.connectedCallback();
-    // Forward the border-radius variable from document root to the host
-    const value = getComputedStyle(document.documentElement).getPropertyValue('--border-border-radius-md');
-    if (value) {
-      this.style.setProperty('--border-border-radius-md', value);
-    }
+    // Extract all CSS variable names from the styles
+    const styleString = (componentColorsStyles as any).cssText || componentColorsStyles.toString();
+    const variables = extractCssVariablesFromStyles(styleString);
+    variables.forEach(variable => {
+      const value = getComputedStyle(document.documentElement).getPropertyValue(variable);
+      if (value) {
+        this.style.setProperty(variable, value);
+      }
+    });
   }
 
   render() {
