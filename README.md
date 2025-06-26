@@ -1,4 +1,4 @@
-# Dive
+# Dive - Design System
 
 ### ✨ Overview
 
