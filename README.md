@@ -171,6 +171,8 @@ To ensure styles work with Lit's shadow DOM, use the automated script to convert
 
 For best practices and troubleshooting when creating new CSS components and their stories, see [src/components/README.md](src/components/README.md).
 
+**Note:** CSS variables used in your component's styles are now automatically forwarded to the shadow DOM. You do not need to manually forward variables—just use them in your CSS and they will be available in your Lit component.
+
 ---
 
 _For questions or improvements, open an issue or contact the maintainers._ 

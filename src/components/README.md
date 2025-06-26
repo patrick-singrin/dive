@@ -38,22 +38,11 @@ src/components/ComponentName/
 
 ## 3. Shadow DOM & CSS Variables
 
-**Important:** CSS variables must be available in the component's shadow DOM.
+**Automatic CSS Variable Forwarding**
 
-If a variable is defined globally, forward it to the component in `connectedCallback`:
+All CSS variables used in your component's styles (i.e., any `var(--...)` in your `.css` file) are now automatically forwarded to the shadow DOM. This means you do **not** need to manually forward variables in your Lit component—any variable you use in your CSS will be available in the shadow DOM and work as expected.
 
-```ts
-connectedCallback() {
-  super.connectedCallback();
-  const value = getComputedStyle(document.documentElement).getPropertyValue('--your-variable-name');
-  if (value) {
-    this.style.setProperty('--your-variable-name', value);
-  }
-}
-```
-*Note: Match the variable name to the one used in your CSS (e.g., `--border-border-radius-md`).*
-
-This prevents issues where variables are not visible inside the shadow DOM.
+*This automation is now the default and recommended approach for all new components.*
 
 ## 4. Storybook Integration
 
@@ -62,7 +51,7 @@ This prevents issues where variables are not visible inside the shadow DOM.
 
 ## 5. Common Pitfalls & Fixes
 
-- **Shadow DOM variable issues:** See above.
+- **Shadow DOM variable issues:** This is now handled automatically.
 - **CSS specificity:** Prefer component styles over global overrides.
 - **Storybook style conflicts:** Use unique class names and avoid global selectors.
 
@@ -70,7 +59,7 @@ This prevents issues where variables are not visible inside the shadow DOM.
 
 - [ ] Component folder created
 - [ ] Uses design tokens
-- [ ] CSS variables forwarded if needed
+- [ ] CSS variables used in CSS (auto-forwarded)
 - [ ] Storybook story created
 - [ ] Manual test in Storybook
 
@@ -79,7 +68,7 @@ This prevents issues where variables are not visible inside the shadow DOM.
 ## 7. Troubleshooting
 
 If a style is not applied, check:
-- Is the variable available in the shadow DOM?
+- Is the variable available in the shadow DOM? (Should be automatic)
 - Is there a more specific selector overriding your style?
 - Is Storybook injecting conflicting styles?
 
