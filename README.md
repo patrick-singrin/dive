@@ -14,13 +14,20 @@ A scalable, theme-aware system for managing design tokens and generating CSS cus
    ```
 2. **Generate CSS variables**
    ```sh
-   node scripts/generate-css-variables.cjs
+   npx ts-node scripts/generate-css-variables.ts
    ```
    _See [scripts/README.md](scripts/README.md) for advanced options._
 
-3. **Use in your app**
-   - Import generated CSS from `src/tokens/css-vars/` into your project.
+3. **Component styles workflow**
+   - Edit your component's `.css` file in `src/components/` (this is the source of truth).
+   - Run the watcher to auto-generate Lit CSS files:
+     ```sh
+     npm run watch:lit-css
+     ```
+   - The watcher will keep Lit CSS files (e.g., `ComponentName.styles.ts`) in sync with your `.css` files.
+   - Import the generated Lit styles in your component as shown in [src/components/README.md](src/components/README.md).
 
+4. **Use in your app**
 ---
 
 ### 🗂️ Project Structure
@@ -101,6 +108,28 @@ A scalable, theme-aware system for managing design tokens and generating CSS cus
 - Uncomment the relevant line in `scripts/generate-css-variables.cjs`.
 - Ensure all references in `layouts/layout.json` are mapped in your mode files.
 
+#### 🎨 Lit Component Styles Automation
+
+To ensure styles work with Lit's shadow DOM, use the automated script to convert component CSS files to Lit `css` templates:
+
+1. **Edit your component's CSS file** (e.g., `src/components/Button/Button.css`).
+2. **Run the conversion script:**
+   ```sh
+   node scripts/convert-css-to-lit.cjs
+   ```
+   This will generate a corresponding `Button.styles.ts` file exporting a Lit `css` template.
+3. **Import and use the generated styles in your component:**
+   ```ts
+   import { buttonStyles } from './Button.styles';
+   export class MyButton extends LitElement {
+     static styles = [buttonStyles];
+     // ...
+   }
+   ```
+
+- This workflow ensures your styles are encapsulated and always work in Storybook and all apps.
+- The script will process all `.css` files in `src/components/**` and generate `.styles.ts` files as needed.
+
 ---
 
 ### 📚 Storybook Integration
@@ -135,6 +164,12 @@ A scalable, theme-aware system for managing design tokens and generating CSS cus
 
 - [scripts/README.md](scripts/README.md): Full script documentation, CLI options, troubleshooting.
 - Comments in each script for implementation details.
+
+---
+
+## Component Development Guidelines
+
+For best practices and troubleshooting when creating new CSS components and their stories, see [src/components/README.md](src/components/README.md).
 
 ---
 

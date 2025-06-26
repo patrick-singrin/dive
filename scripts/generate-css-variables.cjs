@@ -99,6 +99,38 @@ function main() {
       const cssBlocks = [];
       let fileVarCount = 0;
       let modeDuplicateVars = 0;
+      // --- BEGIN: Generate :root block from light mode (or first mode) ---
+      let rootMode = modes.includes('light-mode') ? 'light-mode' : modes[0];
+      const themeTokens = readJson(path.join(TOKENS_DIR, 'brand-theme', `${theme}.json`));
+      const modeTokens = readJson(path.join(TOKENS_DIR, 'color-modes', `${rootMode}.json`));
+      const resolver = new TokenResolver({
+        componentTokens: tokenSet,
+        modeTokens,
+        themeTokens,
+        tokenType: tokenSetName,
+      });
+      const rootCssLines = [];
+      function walkRoot(obj, pathArr = []) {
+        for (const key in obj) {
+          if (key === '$type' || key === '$value') continue;
+          if (typeof obj[key] === 'object' && ('$value' in obj[key])) {
+            const type = obj[key].$type;
+            let value;
+            try {
+              value = resolver.resolveToken([...pathArr, key]);
+            } catch (err) {
+              logError(err.message);
+              value = '/* unresolved */';
+            }
+            rootCssLines.push(`  ${toCssVarName([...pathArr, key])}: ${formatCssValue(value, type)};`);
+          } else if (typeof obj[key] === 'object') {
+            walkRoot(obj[key], [...pathArr, key]);
+          }
+        }
+      }
+      walkRoot(tokenSet);
+      cssBlocks.push(`:root {\n${rootCssLines.join('\n')}\n}`);
+      // --- END: :root block ---
       for (const mode of modes) {
         // Collect variable names for this mode
         const themeTokens = readJson(path.join(TOKENS_DIR, 'brand-theme', `${theme}.json`));

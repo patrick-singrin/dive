@@ -3,6 +3,7 @@ export const withThemeProvider = (Story, context) => {
   const mode = context.globals.mode || 'light';
   document.documentElement.setAttribute('data-theme', mode);
   document.documentElement.setAttribute('data-theme-name', theme);
+  document.documentElement.setAttribute('data-mode', `${mode}-mode`);
   // Dynamically import the CSS variable injector to avoid circular deps
   import('../src/tokens/inject-css-vars').then(({ injectAllTokenCssVars }) => {
     injectAllTokenCssVars(mode);
