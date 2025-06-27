@@ -7,10 +7,10 @@
 import { HTMLStencilElement, JSXBase } from "@stencil/core/internal";
 import { BadgeType } from "./components/Badge/Badge";
 import { BlueprintChangeEvent, BlueprintContent, BlueprintSize, BlueprintVariant } from "./components/_Blueprint/Blueprint";
-import { ChipType, ChipVariant } from "./components/Chip/Chip";
+import { ChipSize, ChipType, ChipVariant } from "./components/Chip/Chip";
 export { BadgeType } from "./components/Badge/Badge";
 export { BlueprintChangeEvent, BlueprintContent, BlueprintSize, BlueprintVariant } from "./components/_Blueprint/Blueprint";
-export { ChipType, ChipVariant } from "./components/Chip/Chip";
+export { ChipSize, ChipType, ChipVariant } from "./components/Chip/Chip";
 export namespace Components {
     interface DiveBadge {
         /**
@@ -93,9 +93,26 @@ export namespace Components {
     }
     interface DiveChip {
         /**
+          * @default true
+         */
+        "clickable": boolean;
+        /**
           * @default false
          */
         "disabled": boolean;
+        "icon"?: string;
+        /**
+          * @default false
+         */
+        "iconOnly": boolean;
+        /**
+          * @default false
+         */
+        "removable": boolean;
+        /**
+          * @default 'medium'
+         */
+        "size": ChipSize;
         /**
           * @default ''
          */
@@ -130,6 +147,10 @@ export interface DiveBlueprintCustomEvent<T> extends CustomEvent<T> {
     detail: T;
     target: HTMLDiveBlueprintElement;
 }
+export interface DiveChipCustomEvent<T> extends CustomEvent<T> {
+    detail: T;
+    target: HTMLDiveChipElement;
+}
 declare global {
     interface HTMLDiveBadgeElement extends Components.DiveBadge, HTMLStencilElement {
     }
@@ -162,7 +183,19 @@ declare global {
         prototype: HTMLDiveBlueprintElement;
         new (): HTMLDiveBlueprintElement;
     };
+    interface HTMLDiveChipElementEventMap {
+        "chipClick": void;
+        "chipRemove": void;
+    }
     interface HTMLDiveChipElement extends Components.DiveChip, HTMLStencilElement {
+        addEventListener<K extends keyof HTMLDiveChipElementEventMap>(type: K, listener: (this: HTMLDiveChipElement, ev: DiveChipCustomEvent<HTMLDiveChipElementEventMap[K]>) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | AddEventListenerOptions): void;
+        addEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | AddEventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLDiveChipElementEventMap>(type: K, listener: (this: HTMLDiveChipElement, ev: DiveChipCustomEvent<HTMLDiveChipElementEventMap[K]>) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof DocumentEventMap>(type: K, listener: (this: Document, ev: DocumentEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener<K extends keyof HTMLElementEventMap>(type: K, listener: (this: HTMLElement, ev: HTMLElementEventMap[K]) => any, options?: boolean | EventListenerOptions): void;
+        removeEventListener(type: string, listener: EventListenerOrEventListenerObject, options?: boolean | EventListenerOptions): void;
     }
     var HTMLDiveChipElement: {
         prototype: HTMLDiveChipElement;
@@ -279,9 +312,28 @@ declare namespace LocalJSX {
     }
     interface DiveChip {
         /**
+          * @default true
+         */
+        "clickable"?: boolean;
+        /**
           * @default false
          */
         "disabled"?: boolean;
+        "icon"?: string;
+        /**
+          * @default false
+         */
+        "iconOnly"?: boolean;
+        "onChipClick"?: (event: DiveChipCustomEvent<void>) => void;
+        "onChipRemove"?: (event: DiveChipCustomEvent<void>) => void;
+        /**
+          * @default false
+         */
+        "removable"?: boolean;
+        /**
+          * @default 'medium'
+         */
+        "size"?: ChipSize;
         /**
           * @default ''
          */

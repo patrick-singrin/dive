@@ -1,200 +1,292 @@
-# Dive - Design System
+# Dive Design System
 
-### ✨ Overview
+A comprehensive design system built with Stencil web components, featuring automated design token processing, systematic component creation workflows, and comprehensive documentation for consistent, maintainable user interfaces.
 
-A scalable, theme-aware system for managing design tokens and generating CSS custom properties from Figma-exported JSON files. Supports multiple themes, color modes, and component-level tokens for consistent, maintainable web styling.
+## Why Dive Design System
 
----
+**Framework Agnostic**: Built with Stencil web components that work in React, Vue, Angular, or vanilla JavaScript without framework dependencies or lock-in.
 
-### 🚀 Quickstart
+**Design Token Automation**: Automated pipeline processes Figma-exported JSON into CSS custom properties with support for multiple themes and color modes.
 
-1. **Install dependencies**
-   ```sh
-   npm install
-   ```
-2. **Generate CSS variables**
-   ```sh
-   npx ts-node scripts/generate-css-variables.ts
-   ```
-   _See [scripts/README.md](scripts/README.md) for advanced options._
+**Systematic Component Creation**: 8-phase documented workflow from Figma analysis to production-ready components with comprehensive quality assurance.
 
-3. **Component development workflow**
-   - Create Stencil components in `src/components/` using TypeScript (`.tsx` files).
-   - Use CSS files directly - no build step needed for styles.
-   - Build components:
-     ```sh
-     npm run build
-     ```
-   - Test in Storybook:
-     ```sh
-     npm run storybook
-     ```
-   - See [src/components/COMPONENT_DEVELOPMENT.md](src/components/COMPONENT_DEVELOPMENT.md) for complete guide.
+**Developer Experience Focus**: Hot reload development, TypeScript integration, comprehensive Storybook documentation, and systematic patterns that reduce learning curve.
 
-4. **Use in your app**
----
-
-### 🗂️ Project Structure
-
-| Path                        | Purpose                                      |
-|-----------------------------|----------------------------------------------|
-| `src/tokens/data/`          | Source JSON for themes, modes, components    |
-| `src/tokens/css-vars/`      | Generated CSS variable files                 |
-| `scripts/`                  | Node.js scripts for token processing         |
-| `src/`                      | Main source code for your app/design system  |
+**Living Documentation**: Modular documentation system with problem database, decision log, and living blueprints that capture institutional knowledge and prevent repeated mistakes.
 
 ---
 
-### 🧩 Token File Examples
+## Quick Start
 
-#### Theme File (`src/tokens/data/brand-theme/dive-theme.json`)
-```json
-{
-  "Color": {
-    "Primary": {
-      "600": { "$type": "color", "$value": "#2c72e0" }
-      // ...
-    }
-    // ...
+### Prerequisites
+- Node.js 18+
+- npm
+
+### Installation & Setup
+```bash
+# Clone and install dependencies
+npm install
+
+# Build Stencil components (required before Storybook)
+npm run build
+
+# Start development environment
+npm run storybook
+```
+
+### Generate Design Tokens
+```bash
+# Process design tokens from Figma exports
+npx ts-node scripts/generate-css-variables.ts
+```
+
+### Create Your First Component
+```tsx
+import { Component, Prop, h } from '@stencil/core';
+
+@Component({
+  tag: 'dive-button',
+  styleUrl: 'Button.css',
+  shadow: true,
+})
+export class Button {
+  @Prop() variant: 'primary' | 'secondary' = 'primary';
+  @Prop() text: string = '';
+
+  render() {
+    return h('button', {
+      class: `button button--${this.variant}`
+    }, this.text);
   }
-  // ...
 }
 ```
 
-#### Color Mode File (`src/tokens/data/color-modes/light-mode.json`)
-```json
-{
-  "Primary": {
-    "600": { "$type": "color", "$value": "{Color.Primary.600}" }
-    // ...
-  }
-  // ...
-}
-```
-
-#### Component Token File (`src/tokens/data/components/component.json`)
-```json
-{
-  "Color": {
-    "Primary": {
-      "Background": {
-        "default": { "$type": "color", "$value": "{Primary.50}" }
-        // ...
-      }
-      // ...
-    }
-    // ...
-  }
-  // ...
-}
+### Use Components Anywhere
+```html
+<!-- Works in any framework or vanilla HTML -->
+<dive-button variant="primary" text="Click me"></dive-button>
 ```
 
 ---
 
-### 🛠️ Common Tasks
+## Core Features
 
-#### Add a New Theme
-1. Create a new file in `src/tokens/data/brand-theme/` (e.g., `my-theme.json`).
-2. Follow the structure of `dive-theme.json`.
-3. Run the generation script.
+### 🎨 **Design Token System**
+- **Automated Processing**: Direct Figma JSON to CSS variables pipeline
+- **Multi-Theme Support**: Light, dark, and high-contrast color modes
+- **Component-Level Tokens**: Granular control with component-specific overrides
+- **CSS Custom Properties**: Shadow DOM compatible variable inheritance
 
-#### Add a New Color Mode
-1. Create a new file in `src/tokens/data/color-modes/` (e.g., `sepia-mode.json`).
-2. Map semantic tokens to palette tokens as in `light-mode.json`.
-3. Run the generation script.
+### ⚡ **Component Development**
+- **Stencil Framework**: TypeScript-first with automatic type generation
+- **Shadow DOM**: Encapsulated styling with systematic CSS variable patterns
+- **Event System**: Typed custom events with proper emission patterns
+- **Accessibility**: WCAG 2.1 AA compliance with comprehensive validation
 
-#### Add a New Component Token
-1. Edit `src/tokens/data/components/component.json`.
-2. Add your new token under the appropriate category.
-3. Run the generation script.
+### 🛠️ **Developer Tools**
+- **Storybook Integration**: Comprehensive component documentation and testing
+- **Hot Reload**: Instant feedback during development
+- **TypeScript Support**: Full type safety with IDE integration
+- **Build Optimization**: Tree-shakeable components under 10KB gzipped
 
-#### Enable Layout Tokens (Advanced)
-- Uncomment the relevant line in `scripts/generate-css-variables.cjs`.
-- Ensure all references in `layouts/layout.json` are mapped in your mode files.
-
-#### 🎨 Stencil Component Development
-
-Components are built using Stencil framework for natural CSS variable inheritance and Scale Design System compatibility:
-
-1. **Create a new component** (e.g., `src/components/Button/Button.tsx`):
-   ```tsx
-   import { Component, Prop, h } from '@stencil/core';
-   
-   @Component({
-     tag: 'dive-button',
-     styleUrl: 'Button.css',
-     shadow: true,
-   })
-   export class Button {
-     @Prop() variant: string = 'primary';
-     render() {
-       return h('button', { class: `button button--${this.variant}` }, 'Button');
-     }
-   }
-   ```
-
-2. **Create CSS with design tokens** (`Button.css`):
-   ```css
-   :host {
-     --button-bg: var(--Color-Primary-Primary-Background-default, #2563eb);
-   }
-   .button { background: var(--button-bg); }
-   ```
-
-3. **Build and test:**
-   ```sh
-   npm run build      # Compile Stencil components
-   npm run storybook  # Test in Storybook
-   ```
-
-- CSS variables are naturally inherited in Stencil's shadow DOM
-- No manual CSS variable forwarding needed
-- Automatic component registration and TypeScript definitions
+### 📚 **Documentation System**
+- **Modular Approach**: 8-phase component creation documentation
+- **Living Problem Database**: Captures known issues and proven solutions
+- **Quality Assurance**: Systematic validation checklists and testing requirements
+- **Decision Log**: Architectural decisions and rationale tracking
 
 ---
 
-### 📚 Storybook Integration
+## Architecture
 
-- **Design System Integration**: Storybook UI automatically adapts to theme modes using design system background variables
-- **Component Preview**: Explore all color variables visually in ComponentColors story
-- **Theme Switching**: Use toolbar to switch between light/dark/high-contrast modes
-- **Component Testing**: All components automatically work with theme switching
-- For Storybook configuration, see [src/components/COMPONENT_DEVELOPMENT.md](src/components/COMPONENT_DEVELOPMENT.md) and [Storybook Docs](https://storybook.js.org/).
+### Project Structure
+```
+src/
+├── components/           # Stencil web components
+│   └── [ComponentName]/
+│       ├── ComponentName.tsx    # Component implementation
+│       ├── ComponentName.css    # Component styles
+│       └── ComponentName.stories.ts  # Storybook stories
+├── tokens/
+│   ├── data/            # Source design tokens (Figma exports)
+│   │   ├── brand-theme/     # Brand-specific tokens
+│   │   ├── color-modes/     # Light/dark/high-contrast
+│   │   └── components/      # Component-specific tokens
+│   └── css-vars/        # Generated CSS custom properties
+├── scripts/             # Design token processing
+└── public/icons/        # Tabler Icons integration (5,800+ icons)
+```
+
+### Design Token Pipeline
+```
+Figma Variables Export (JSON) 
+    ↓
+TypeScript Token Processor
+    ↓
+CSS Custom Properties
+    ↓
+Multi-Theme CSS Files
+    ↓
+Stencil Component Integration
+```
+
+### Component Architecture Patterns
+```tsx
+// Systematic prop patterns
+@Prop() variant: ComponentVariant = 'primary';
+@Prop() size: ComponentSize = 'medium';
+@Prop() disabled: boolean = false;
+
+// CSS variable inheritance for Shadow DOM
+:host {
+  --Spacing-2: var(--Spacing-2, 8px);
+  --Color-Primary-Background-default: var(--Color-Primary-Background-default, #2563eb);
+}
+
+// Event emission patterns
+@Event() componentClick: EventEmitter<MouseEvent>;
+```
 
 ---
 
-### 🧑‍💻 Contributing
+## Framework Integration
 
-- Edit JSON files in `src/tokens/data/` to extend tokens.
-- See [scripts/README.md](scripts/README.md) for script customization.
-- PRs and issues welcome!
+### React
+```tsx
+import { defineCustomElement } from '@dive/components/dive-button';
+
+defineCustomElement();
+
+function App() {
+  return <dive-button variant="primary" text="React Button" />;
+}
+```
+
+### Vue 3
+```vue
+<template>
+  <dive-button variant="primary" text="Vue Button" />
+</template>
+
+<script setup>
+import { defineCustomElement } from '@dive/components/dive-button';
+defineCustomElement();
+</script>
+```
+
+### Angular
+```typescript
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { defineCustomElement } from '@dive/components/dive-button';
+
+defineCustomElement();
+
+@NgModule({
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
+})
+export class AppModule { }
+```
+
+### Vanilla JavaScript
+```html
+<script type="module">
+  import { defineCustomElement } from './dist/components/dive-button.js';
+  defineCustomElement();
+</script>
+
+<dive-button variant="primary" text="Vanilla Button"></dive-button>
+```
 
 ---
 
-### ❓ FAQ & Troubleshooting
+## Development Workflow
 
-- **Unresolved Token Error:**  
-  Check that all references in your JSON files are correct and resolvable.
-- **No Files Generated:**  
-  Remove the `--dry-run` flag.
-- **Script Errors:**  
-  Ensure all required JSON files exist and are valid.
+### Component Creation Process
+1. **[Project Context](./docs/component-creation/01-project-context.md)** - Understand system architecture
+2. **[Figma Analysis](./docs/component-creation/02-figma-requirements.md)** - Extract design specifications
+3. **[Implementation](./docs/component-creation/03-technical-implementation.md)** - Build with Stencil patterns
+4. **[Reference Patterns](./docs/component-creation/04-living-blueprint.md)** - Follow proven implementations
+5. **[Quality Assurance](./docs/component-creation/05-quality-assurance.md)** - Validate before release
+
+### Available Commands
+```bash
+# Development
+npm run build          # Build Stencil components
+npm run start           # Stencil dev server with hot reload
+npm run storybook       # Component development environment
+
+# Design Tokens
+npm run tokens:build    # Process design tokens
+npm run tokens:watch    # Watch for token changes
+
+# Testing
+npm run test            # Run component tests
+npm run test:watch      # Watch mode for testing
+
+# Production
+npm run build-storybook # Build Storybook for deployment
+```
 
 ---
 
-### 📎 Resources
+## Browser Support
 
-- [scripts/README.md](scripts/README.md): Full script documentation, CLI options, troubleshooting.
-- Comments in each script for implementation details.
-
----
-
-## Component Development Guidelines
-
-For complete best practices, patterns, and troubleshooting when creating new Stencil components, see [src/components/COMPONENT_DEVELOPMENT.md](src/components/COMPONENT_DEVELOPMENT.md).
-
-**Framework Migration**: The design system has been migrated from Lit to Stencil for improved CSS variable handling, Scale Design System compatibility, and simplified development experience. See [STENCIL_MIGRATION_SUCCESS.md](STENCIL_MIGRATION_SUCCESS.md) for details.
+- **Modern Browsers**: Chrome 90+, Firefox 90+, Safari 14+, Edge 90+
+- **Mobile**: iOS Safari 14+, Android Chrome 90+
+- **Web Components**: Native support in all target browsers
+- **CSS Custom Properties**: Full support for theming system
 
 ---
 
-_For questions or improvements, open an issue or contact the maintainers._ 
+## Contributing
+
+### Development Setup
+1. Fork and clone the repository
+2. Install dependencies: `npm install`
+3. Build components: `npm run build`
+4. Start development: `npm run storybook`
+
+### Component Contribution
+1. Follow the [8-phase creation process](./docs/component-creation/)
+2. Use the [Living Blueprint](./docs/component-creation/04-living-blueprint.md) for patterns
+3. Complete [Quality Assurance](./docs/component-creation/05-quality-assurance.md) validation
+4. Submit pull request with documentation
+
+### Documentation Updates
+- **Problem Database**: Add solutions for new issues encountered
+- **User Feedback**: Share insights and improvements
+- **Decision Log**: Document architectural decisions
+
+---
+
+## Resources
+
+### Documentation
+- **[Component Creation Guide](./docs/component-creation/)** - Complete development workflow
+- **[Technical Implementation](./docs/component-creation/03-technical-implementation.md)** - Code patterns and conventions
+- **[Quality Assurance](./docs/component-creation/05-quality-assurance.md)** - Validation checklists
+
+### Design Tokens
+- **[Token Processing](./scripts/README.md)** - Design token pipeline documentation
+- **[Multi-Theme Setup](./src/tokens/)** - Theme configuration and customization
+
+### Examples
+- **[Storybook](http://localhost:6006)** - Live component examples and documentation
+- **[Living Blueprint](./docs/component-creation/04-living-blueprint.md)** - Reference implementation patterns
+
+---
+
+## License
+
+[License information - specify your license here]
+
+---
+
+## Support
+
+For questions, issues, or contributions:
+- **Documentation**: Start with the [Component Creation Guide](./docs/component-creation/)
+- **Issues**: Check the [Problem Database](./docs/component-creation/06-problem-database.md) for known solutions
+- **Feature Requests**: Use the [User Feedback](./docs/component-creation/07-user-feedback.md) system
+
+*Built with systematic quality assurance and comprehensive documentation to enable predictable, maintainable component development.*

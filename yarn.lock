@@ -678,7 +678,7 @@
   dependencies:
     "@sinonjs/commons" "^3.0.1"
 
-"@stencil/core@^4.35.1":
+"@stencil/core@^4.29.3", "@stencil/core@^4.30.0", "@stencil/core@^4.35.1":
   version "4.35.1"
   resolved "https://registry.npmjs.org/@stencil/core/-/core-4.35.1.tgz"
   integrity sha512-u65m3TbzOtpn679gUV4Yvi8YpInhRJ62js30a7YtXief9Ej/vzrhwDE22U0w4DMWJOYwAsJl133BUaZkWwnmzg==
@@ -691,6 +691,32 @@
     "@rollup/rollup-linux-x64-musl" "4.34.9"
     "@rollup/rollup-win32-arm64-msvc" "4.34.9"
     "@rollup/rollup-win32-x64-msvc" "4.34.9"
+
+"@stencil/storybook-plugin@^0.4.2":
+  version "0.4.2"
+  resolved "https://registry.npmjs.org/@stencil/storybook-plugin/-/storybook-plugin-0.4.2.tgz"
+  integrity sha512-T7MArvmw8kRUom42z69mOjoXzUg107xzPOwCLC21eCqF+zZMh2VvfmTxfp0MbF19EVxr+siIrC+X0Obhz9Zfyg==
+  dependencies:
+    "@storybook/addon-actions" "^9.0.8"
+    "@storybook/builder-vite" "^9.0.8"
+    "@storybook/global" "^5.0.0"
+    "@storybook/html" "^9.0.8"
+    preact-render-to-string "^6.5.13"
+    react-docgen-typescript "^2.4.0"
+    unplugin-stencil "^0.3.5"
+
+"@storybook/addon-a11y@^9.0.13":
+  version "9.0.13"
+  resolved "https://registry.npmjs.org/@storybook/addon-a11y/-/addon-a11y-9.0.13.tgz"
+  integrity sha512-MVkfZx7ZeAOMGzeRLH6Rf2NMMA5ubTRR8EzW0x0kGXIfYhZxRj+hDEZl3ggMUo+A30w+hOi4d8OGFfWm45DTeg==
+  dependencies:
+    "@storybook/global" "^5.0.0"
+    axe-core "^4.2.0"
+
+"@storybook/addon-actions@^9.0.8":
+  version "9.0.8"
+  resolved "https://registry.npmjs.org/@storybook/addon-actions/-/addon-actions-9.0.8.tgz"
+  integrity sha512-LFePu7PPnWN0Il/uoUpmA5T0J0C7d6haJIbg0pXrjxW2MQVSYXE4S4LSUz8fOImltBDV3xAl6tLPYHFj6VcrOA==
 
 "@storybook/addon-docs@^9.0.13":
   version "9.0.13"
@@ -712,7 +738,7 @@
   dependencies:
     ts-dedent "^2.0.0"
 
-"@storybook/builder-vite@^9.0.13", "@storybook/builder-vite@9.0.13":
+"@storybook/builder-vite@^9.0.13", "@storybook/builder-vite@^9.0.8", "@storybook/builder-vite@9.0.13":
   version "9.0.13"
   resolved "https://registry.npmjs.org/@storybook/builder-vite/-/builder-vite-9.0.13.tgz"
   integrity sha512-uXciI4Do54nH2HEDPZGfqHmtpH7cMGiDxWBbobgQ/ff4e1ltmZFD9EDwsKzoUUZ1CVvs2qA0Sr/vp4cVsV/urg==
@@ -740,7 +766,7 @@
     "@storybook/builder-vite" "9.0.13"
     "@storybook/html" "9.0.13"
 
-"@storybook/html@9.0.13":
+"@storybook/html@^9.0.8", "@storybook/html@9.0.13":
   version "9.0.13"
   resolved "https://registry.npmjs.org/@storybook/html/-/html-9.0.13.tgz"
   integrity sha512-MYMBcQEDQGnYv+IBsSpE7wD454dmS9olKPwaxREO4KM3frUadMHjPIxi/KsoFGuSyDDkaviAG9eQX7lkbUvLfA==
@@ -988,7 +1014,7 @@ acorn-walk@^8.1.1:
   dependencies:
     acorn "^8.11.0"
 
-acorn@^8.11.0, acorn@^8.14.0, acorn@^8.4.1:
+acorn@^8.11.0, acorn@^8.14.0, acorn@^8.14.1, acorn@^8.4.1:
   version "8.15.0"
   resolved "https://registry.npmjs.org/acorn/-/acorn-8.15.0.tgz"
   integrity sha512-NZyJarBfL7nWwIq+FDL6Zp/yHEhePMNnnJ0y3qfieCrmNvYct8uvtiV41UvlSe6apAfk0fY1FbWx+NwfmpvtTg==
@@ -1104,6 +1130,11 @@ ast-types@^0.16.1:
   integrity sha512-6t10qk83GOG8p0vKmaCr8eiilZwO171AvbROMtvvNiwrTly62t+7XkA8RdIIVbpMhCASAsxgAzdRSwh6nw/5Dg==
   dependencies:
     tslib "^2.0.1"
+
+axe-core@^4.2.0:
+  version "4.10.3"
+  resolved "https://registry.npmjs.org/axe-core/-/axe-core-4.10.3.tgz"
+  integrity sha512-Xm7bpRXnDSX2YE2YFfBk2FnF0ep6tmG7xPh8iHee8MIcrgq762Nkce856dYtJYLkuIoYZvGfTs/PbZhideTcEg==
 
 b4a@^1.6.4:
   version "1.6.7"
@@ -1441,6 +1472,11 @@ concat-map@0.0.1:
   resolved "https://registry.npmjs.org/concat-map/-/concat-map-0.0.1.tgz"
   integrity sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==
 
+confbox@^0.1.8:
+  version "0.1.8"
+  resolved "https://registry.npmjs.org/confbox/-/confbox-0.1.8.tgz"
+  integrity sha512-RMtmw0iFkeR4YV+fUOSucriAQNb9g8zFR52MWCtl+cCZOFRNL6zeB395vPzFhEjjn4fMxXudmELnl/KF/WrK6w==
+
 convert-source-map@^2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/convert-source-map/-/convert-source-map-2.0.0.tgz"
@@ -1612,7 +1648,7 @@ esbuild-register@^3.5.0, esbuild-register@>=3.4.0:
   dependencies:
     debug "^4.3.4"
 
-"esbuild@^0.18.0 || ^0.19.0 || ^0.20.0 || ^0.21.0 || ^0.22.0 || ^0.23.0 || ^0.24.0 || ^0.25.0", esbuild@^0.25.0, "esbuild@>=0.12 <1":
+esbuild@*, "esbuild@^0.18.0 || ^0.19.0 || ^0.20.0 || ^0.21.0 || ^0.22.0 || ^0.23.0 || ^0.24.0 || ^0.25.0", esbuild@^0.25.0, "esbuild@>=0.12 <1":
   version "0.25.5"
   resolved "https://registry.npmjs.org/esbuild/-/esbuild-0.25.5.tgz"
   integrity sha512-P8OtKZRv/5J5hhz0cUAdu/cLuPIKXpQl1R9pZtvmHWQvrAUVd0UNIPT4IB4W3rNOqVO0rlqHmCIbSwxh/c9yUQ==
@@ -2636,6 +2672,16 @@ mitt@^3.0.1:
   resolved "https://registry.npmjs.org/mitt/-/mitt-3.0.1.tgz"
   integrity sha512-vKivATfr97l2/QBCYAkXYDbrIWPM2IIKEl7YPhjCvKlG3kE2gm+uBo6nEXK3M5/Ffh/FLpKExzOQ3JJoJGFKBw==
 
+mlly@^1.7.4:
+  version "1.7.4"
+  resolved "https://registry.npmjs.org/mlly/-/mlly-1.7.4.tgz"
+  integrity sha512-qmdSIPC4bDJXgZTCR7XosJiNKySV7O215tsPtDN9iEO/7q/76b/ijtgRu/+epFXSJhijtTCCGp3DWS549P3xKw==
+  dependencies:
+    acorn "^8.14.0"
+    pathe "^2.0.1"
+    pkg-types "^1.3.0"
+    ufo "^1.5.4"
+
 ms@^2.1.3:
   version "2.1.3"
   resolved "https://registry.npmjs.org/ms/-/ms-2.1.3.tgz"
@@ -2819,6 +2865,11 @@ path-scurry@^2.0.0:
     lru-cache "^11.0.0"
     minipass "^7.1.2"
 
+pathe@^2.0.1:
+  version "2.0.3"
+  resolved "https://registry.npmjs.org/pathe/-/pathe-2.0.3.tgz"
+  integrity sha512-WUjGcAqP1gQacoQe+OBJsFA7Ld4DyXuUIjZ5cc75cLHvJ7dtNsTugphxIADwspS+AraAUePCKrSVtPLFj/F88w==
+
 pathval@^2.0.0:
   version "2.0.1"
   resolved "https://registry.npmjs.org/pathval/-/pathval-2.0.1.tgz"
@@ -2866,6 +2917,15 @@ pkg-dir@^4.2.0:
   dependencies:
     find-up "^4.0.0"
 
+pkg-types@^1.3.0:
+  version "1.3.1"
+  resolved "https://registry.npmjs.org/pkg-types/-/pkg-types-1.3.1.tgz"
+  integrity sha512-/Jm5M4RvtBFVkKWRu2BLUTNP8/M2a+UwuAX+ae4770q1qVGtfjG+WTCupoZixokjmHiry8uI+dlY8KXYV5HVVQ==
+  dependencies:
+    confbox "^0.1.8"
+    mlly "^1.7.4"
+    pathe "^2.0.1"
+
 postcss@^8.5.3:
   version "8.5.6"
   resolved "https://registry.npmjs.org/postcss/-/postcss-8.5.6.tgz"
@@ -2874,6 +2934,16 @@ postcss@^8.5.3:
     nanoid "^3.3.11"
     picocolors "^1.1.1"
     source-map-js "^1.2.1"
+
+preact-render-to-string@^6.5.13:
+  version "6.5.13"
+  resolved "https://registry.npmjs.org/preact-render-to-string/-/preact-render-to-string-6.5.13.tgz"
+  integrity sha512-iGPd+hKPMFKsfpR2vL4kJ6ZPcFIoWZEcBf0Dpm3zOpdVvj77aY8RlLiQji5OMrngEyaxGogeakTb54uS2FvA6w==
+
+preact@>=10:
+  version "10.26.9"
+  resolved "https://registry.npmjs.org/preact/-/preact-10.26.9.tgz"
+  integrity sha512-SSjF9vcnF27mJK1XyFMNJzFd5u3pQiATFqoaDy03XuN00u4ziveVVEGt5RKJrDR8MHE/wJo9Nnad56RLzS2RMA==
 
 pretty-format@^27.0.2:
   version "27.5.1"
@@ -2963,6 +3033,11 @@ pure-rand@^7.0.0:
   resolved "https://registry.npmjs.org/pure-rand/-/pure-rand-7.0.1.tgz"
   integrity sha512-oTUZM/NAZS8p7ANR3SHh30kXB+zK2r2BPcEn/awJIbOvq82WoMN4p62AWWp3Hhw50G0xMsw1mhIBLqHw64EcNQ==
 
+react-docgen-typescript@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.npmjs.org/react-docgen-typescript/-/react-docgen-typescript-2.4.0.tgz"
+  integrity sha512-ZtAp5XTO5HRzQctjPU0ybY0RRCQO19X/8fxn3w7y2VVTUbGHDKULPTL4ky3vB05euSgG5NpALhEhDPvQ56wvXg==
+
 "react-dom@^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0", "react-dom@^16.8.0 || ^17.0.0 || ^18.0.0 || ^19.0.0-beta":
   version "19.1.0"
   resolved "https://registry.npmjs.org/react-dom/-/react-dom-19.1.0.tgz"
@@ -3042,6 +3117,13 @@ resolve-from@^5.0.0:
   version "5.0.0"
   resolved "https://registry.npmjs.org/resolve-from/-/resolve-from-5.0.0.tgz"
   integrity sha512-qYg9KP24dD5qka9J47d0aVky0N+b4fTU89LN9iDnjB5waksiC49rvMB0PrUJQGoTmH50XPiqOvAjDfaijGxYZw==
+
+rollup@^3:
+  version "3.29.5"
+  resolved "https://registry.npmjs.org/rollup/-/rollup-3.29.5.tgz"
+  integrity sha512-GVsDdsbJzzy4S/v3dqWPJ7EfvZJfCHiDqe80IyrF59LYuP+e6U1LJoUqeuqRbwAWoMNoXivMNeNAOf5E22VA1w==
+  optionalDependencies:
+    fsevents "~2.3.2"
 
 rollup@^4.34.9:
   version "4.44.0"
@@ -3176,7 +3258,7 @@ stack-utils@^2.0.6:
   dependencies:
     escape-string-regexp "^2.0.0"
 
-storybook@^9.0.13:
+storybook@^9.0.13, storybook@^9.0.5:
   version "9.0.13"
   resolved "https://registry.npmjs.org/storybook/-/storybook-9.0.13.tgz"
   integrity sha512-RMCTZ24IF8cMu1Ru1vUfnsP+w/OfI6Wm/wjjXaDMoTrriuQG24AF+VL+UipEoqkmZtqoZcfwRyiOgnEWQX8akw==
@@ -3433,15 +3515,28 @@ typed-query-selector@^2.12.0:
   resolved "https://registry.npmjs.org/typed-query-selector/-/typed-query-selector-2.12.0.tgz"
   integrity sha512-SbklCd1F0EiZOyPiW192rrHZzZ5sBijB6xM+cpmrwDqObvdtunOHHIk9fCGsoK5JVIYXoyEp4iEdE3upFH3PAg==
 
-typescript@>=2.7, typescript@>=4.9.5, typescript@~5.8.3:
+"typescript@>= 4.3.x", typescript@>=2.7, typescript@>=4.9.5, typescript@~5.8.3:
   version "5.8.3"
   resolved "https://registry.npmjs.org/typescript/-/typescript-5.8.3.tgz"
   integrity sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==
+
+ufo@^1.5.4:
+  version "1.6.1"
+  resolved "https://registry.npmjs.org/ufo/-/ufo-1.6.1.tgz"
+  integrity sha512-9a4/uxlTWJ4+a5i0ooc1rU7C7YOw3wT+UGqdeNNHWnOF9qcMBgLRS+4IYUqbczewFx4mLEig6gawh7X6mFlEkA==
 
 undici-types@~7.8.0:
   version "7.8.0"
   resolved "https://registry.npmjs.org/undici-types/-/undici-types-7.8.0.tgz"
   integrity sha512-9UJ2xGDvQ43tYyVMpuHlsgApydB8ZKfVYTsLDhXkFL/6gfkp+U8xTGdh8pMJv1SpZna0zxG1DwsKZsreLbXBxw==
+
+unplugin-stencil@^0.3.5:
+  version "0.3.5"
+  resolved "https://registry.npmjs.org/unplugin-stencil/-/unplugin-stencil-0.3.5.tgz"
+  integrity sha512-hHZXzdPO2RmaBrWO4UqD7zrMwQ/+cE/5ykTwG5Foekqe6QXhga8qApkQW7WH2iFw8xZqQIqA3X/NXYDOQFElmg==
+  dependencies:
+    mlly "^1.7.4"
+    unplugin "^2.3.4"
 
 unplugin@^1.3.1:
   version "1.16.1"
@@ -3449,6 +3544,15 @@ unplugin@^1.3.1:
   integrity sha512-4/u/j4FrCKdi17jaxuJA0jClGxB1AvU2hw/IuayPc4ay1XGaJs/rbb4v5WKwAjNifjmXK9PIFyuPiaK8azyR9w==
   dependencies:
     acorn "^8.14.0"
+    webpack-virtual-modules "^0.6.2"
+
+unplugin@^2.3.4:
+  version "2.3.5"
+  resolved "https://registry.npmjs.org/unplugin/-/unplugin-2.3.5.tgz"
+  integrity sha512-RyWSb5AHmGtjjNQ6gIlA67sHOsWpsbWpwDokLwTcejVdOjEkJZh7QKu14J00gDDVSh8kGH4KYC/TNBceXFZhtw==
+  dependencies:
+    acorn "^8.14.1"
+    picomatch "^4.0.2"
     webpack-virtual-modules "^0.6.2"
 
 unrs-resolver@^1.7.11:
@@ -3500,7 +3604,7 @@ v8-to-istanbul@^9.0.1:
     "@types/istanbul-lib-coverage" "^2.0.1"
     convert-source-map "^2.0.0"
 
-"vite@^5.0.0 || ^6.0.0", vite@^6.0.0:
+"vite@^5.0.0 || ^6.0.0", vite@^6.0.0, vite@>=3:
   version "6.3.5"
   resolved "https://registry.npmjs.org/vite/-/vite-6.3.5.tgz"
   integrity sha512-cZn6NDFE7wdTpINgs++ZJ4N49W2vRp8LCKrn3Ob1kYNtOo21vfDoaV5GzBfLU4MovSAB8uNRm4jgzVQZ+mBzPQ==

@@ -1,8 +1,17 @@
-const meta = {
+import type { Meta, StoryObj } from '@stencil/storybook-plugin';
+
+const meta: Meta = {
   title: 'Components/Icon',
+  component: 'dive-icon',  // Use string instead of imported class
   parameters: {
     layout: 'centered',
+    docs: {
+      description: {
+        component: 'A flexible icon component using Tabler Icons library with support for different sizes, colors, and variants.'
+      }
+    }
   },
+  tags: ['autodocs'],
   argTypes: {
     name: {
       control: { type: 'text' },
@@ -27,159 +36,98 @@ const meta = {
       description: 'Icon variant',
     },
   },
-};
-
-export default meta;
-
-export const Default = {
   args: {
     name: 'home',
     size: 'medium',
     variant: 'outline',
     strokeWidth: 2,
-  },
-  render: (args) => {
-    const container = document.createElement('div');
-    const icon = document.createElement('dive-icon');
-    icon.setAttribute('name', args.name);
-    icon.setAttribute('size', args.size);
-    icon.setAttribute('variant', args.variant);
-    icon.setAttribute('stroke-width', args.strokeWidth);
-    if (args.color) icon.setAttribute('color', args.color);
-    container.appendChild(icon);
-    return container;
-  },
+  }
 };
 
-export const Sizes = {
-  render: () => {
-    const container = document.createElement('div');
-    container.style.display = 'flex';
-    container.style.alignItems = 'center';
-    container.style.gap = '16px';
-    
-    ['small', 'medium', 'large'].forEach(size => {
-      const icon = document.createElement('dive-icon');
-      icon.setAttribute('name', 'home');
-      icon.setAttribute('size', size);
-      container.appendChild(icon);
-    });
-    
-    return container;
-  },
+export default meta;
+type Story = StoryObj;
+
+export const Default: Story = {
+  args: {
+    name: 'home',
+    size: 'medium',
+    variant: 'outline',
+    strokeWidth: 2,
+  }
 };
 
-export const CommonIcons = {
-  render: () => {
-    const container = document.createElement('div');
-    container.style.display = 'grid';
-    container.style.gridTemplateColumns = 'repeat(6, 1fr)';
-    container.style.gap = '16px';
-    container.style.alignItems = 'center';
-    
-    ['home', 'user', 'settings', 'search', 'plus', 'minus', 'x', 'check', 'heart', 'star', 'mail', 'phone'].forEach(iconName => {
-      const icon = document.createElement('dive-icon');
-      icon.setAttribute('name', iconName);
-      container.appendChild(icon);
-    });
-    
-    return container;
-  },
+export const Sizes: Story = {
+  render: () => `
+    <div style="display: flex; align-items: center; gap: 16px;">
+      <dive-icon name="home" size="small"></dive-icon>
+      <dive-icon name="home" size="medium"></dive-icon>
+      <dive-icon name="home" size="large"></dive-icon>
+    </div>
+  `
 };
 
-export const Variants = {
-  render: () => {
-    const container = document.createElement('div');
-    container.style.display = 'flex';
-    container.style.gap = '32px';
-    
-    // Outline section
-    const outlineSection = document.createElement('div');
-    outlineSection.style.textAlign = 'center';
-    const outlineTitle = document.createElement('h3');
-    outlineTitle.textContent = 'Outline';
-    outlineSection.appendChild(outlineTitle);
-    
-    const outlineIcons = document.createElement('div');
-    outlineIcons.style.display = 'flex';
-    outlineIcons.style.gap = '8px';
-    
-    ['heart', 'star', 'bookmark'].forEach(iconName => {
-      const icon = document.createElement('dive-icon');
-      icon.setAttribute('name', iconName);
-      icon.setAttribute('variant', 'outline');
-      outlineIcons.appendChild(icon);
-    });
-    
-    outlineSection.appendChild(outlineIcons);
-    
-    // Filled section
-    const filledSection = document.createElement('div');
-    filledSection.style.textAlign = 'center';
-    const filledTitle = document.createElement('h3');
-    filledTitle.textContent = 'Filled';
-    filledSection.appendChild(filledTitle);
-    
-    const filledIcons = document.createElement('div');
-    filledIcons.style.display = 'flex';
-    filledIcons.style.gap = '8px';
-    
-    ['heart', 'star', 'bookmark'].forEach(iconName => {
-      const icon = document.createElement('dive-icon');
-      icon.setAttribute('name', iconName);
-      icon.setAttribute('variant', 'filled');
-      filledIcons.appendChild(icon);
-    });
-    
-    filledSection.appendChild(filledIcons);
-    
-    container.appendChild(outlineSection);
-    container.appendChild(filledSection);
-    
-    return container;
-  },
+export const CommonIcons: Story = {
+  render: () => `
+    <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; align-items: center;">
+      <dive-icon name="home"></dive-icon>
+      <dive-icon name="user"></dive-icon>
+      <dive-icon name="settings"></dive-icon>
+      <dive-icon name="search"></dive-icon>
+      <dive-icon name="plus"></dive-icon>
+      <dive-icon name="minus"></dive-icon>
+      <dive-icon name="x"></dive-icon>
+      <dive-icon name="check"></dive-icon>
+      <dive-icon name="heart"></dive-icon>
+      <dive-icon name="star"></dive-icon>
+      <dive-icon name="mail"></dive-icon>
+      <dive-icon name="phone"></dive-icon>
+    </div>
+  `
 };
 
-export const Colors = {
-  render: () => {
-    const container = document.createElement('div');
-    container.style.display = 'flex';
-    container.style.gap = '16px';
-    container.style.alignItems = 'center';
-    
-    const iconConfigs = [
-      { name: 'heart', color: 'red' },
-      { name: 'star', color: 'gold' },
-      { name: 'check', color: 'green' },
-      { name: 'x', color: 'crimson' },
-      { name: 'settings', color: 'blue' }
-    ];
-    
-    iconConfigs.forEach(config => {
-      const icon = document.createElement('dive-icon');
-      icon.setAttribute('name', config.name);
-      icon.setAttribute('color', config.color);
-      container.appendChild(icon);
-    });
-    
-    return container;
-  },
+export const Variants: Story = {
+  render: () => `
+    <div style="display: flex; gap: 32px;">
+      <div style="text-align: center;">
+        <h3>Outline</h3>
+        <div style="display: flex; gap: 8px;">
+          <dive-icon name="heart" variant="outline"></dive-icon>
+          <dive-icon name="star" variant="outline"></dive-icon>
+          <dive-icon name="bookmark" variant="outline"></dive-icon>
+        </div>
+      </div>
+      <div style="text-align: center;">
+        <h3>Filled</h3>
+        <div style="display: flex; gap: 8px;">
+          <dive-icon name="heart" variant="filled"></dive-icon>
+          <dive-icon name="star" variant="filled"></dive-icon>
+          <dive-icon name="bookmark" variant="filled"></dive-icon>
+        </div>
+      </div>
+    </div>
+  `
 };
 
-export const StrokeWidths = {
-  render: () => {
-    const container = document.createElement('div');
-    container.style.display = 'flex';
-    container.style.gap = '16px';
-    container.style.alignItems = 'center';
-    
-    [1, 1.5, 2, 2.5, 3].forEach(strokeWidth => {
-      const icon = document.createElement('dive-icon');
-      icon.setAttribute('name', 'home');
-      icon.setAttribute('stroke-width', strokeWidth.toString());
-      container.appendChild(icon);
-    });
-    
-    return container;
-  },
-}; 
+export const Colors: Story = {
+  render: () => `
+    <div style="display: flex; gap: 16px; align-items: center;">
+      <dive-icon name="heart" color="red"></dive-icon>
+      <dive-icon name="star" color="gold"></dive-icon>
+      <dive-icon name="check" color="green"></dive-icon>
+      <dive-icon name="x" color="crimson"></dive-icon>
+      <dive-icon name="settings" color="blue"></dive-icon>
+    </div>
+  `
+};
+
+export const StrokeWidths: Story = {
+  render: () => `
+    <div style="display: flex; gap: 16px; align-items: center;">
+      <dive-icon name="home" stroke-width="1"></dive-icon>
+      <dive-icon name="home" stroke-width="1.5"></dive-icon>
+      <dive-icon name="home" stroke-width="2"></dive-icon>
+      <dive-icon name="home" stroke-width="2.5"></dive-icon>
+      <dive-icon name="home" stroke-width="3"></dive-icon>
+    </div>
+  `
+};

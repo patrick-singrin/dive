@@ -44,13 +44,39 @@ The chip component uses CSS custom properties from the design system for consist
 
 ## Properties
 
-| Property   | Attribute  | Description | Type                                                                 | Default     |
-| ---------- | ---------- | ----------- | -------------------------------------------------------------------- | ----------- |
-| `disabled` | `disabled` |             | `boolean`                                                            | `false`     |
-| `text`     | `text`     |             | `string`                                                             | `''`        |
-| `type`     | `type`     |             | `"base" \| "error" \| "info" \| "primary" \| "success" \| "warning"` | `'base'`    |
-| `variant`  | `variant`  |             | `"filled" \| "outline"`                                              | `'outline'` |
+| Property    | Attribute   | Description | Type                                                                 | Default     |
+| ----------- | ----------- | ----------- | -------------------------------------------------------------------- | ----------- |
+| `clickable` | `clickable` |             | `boolean`                                                            | `true`      |
+| `disabled`  | `disabled`  |             | `boolean`                                                            | `false`     |
+| `icon`      | `icon`      |             | `string \| undefined`                                                | `undefined` |
+| `iconOnly`  | `icon-only` |             | `boolean`                                                            | `false`     |
+| `removable` | `removable` |             | `boolean`                                                            | `false`     |
+| `size`      | `size`      |             | `"large" \| "medium" \| "small"`                                     | `'medium'`  |
+| `text`      | `text`      |             | `string`                                                             | `''`        |
+| `type`      | `type`      |             | `"base" \| "error" \| "info" \| "primary" \| "success" \| "warning"` | `'base'`    |
+| `variant`   | `variant`   |             | `"filled" \| "outline"`                                              | `'outline'` |
 
+
+## Events
+
+| Event        | Description | Type                |
+| ------------ | ----------- | ------------------- |
+| `chipClick`  |             | `CustomEvent<void>` |
+| `chipRemove` |             | `CustomEvent<void>` |
+
+
+## Dependencies
+
+### Depends on
+
+- [dive-icon](../Icon)
+
+### Graph
+```mermaid
+graph TD;
+  dive-chip --> dive-icon
+  style dive-chip fill:#f9f,stroke:#333,stroke-width:4px
+```
 
 ----------------------------------------------
 
