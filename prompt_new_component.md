@@ -125,6 +125,142 @@ export class ComponentName {
 }
 ```
 
+#### Component with Icon Integration
+```tsx
+import { Component, Prop, h } from '@stencil/core';
+
+export type ButtonVariant = 'primary' | 'secondary' | 'ghost';
+
+@Component({
+  tag: 'dive-button',
+  styleUrl: 'Button.css',
+  shadow: true,
+})
+export class Button {
+  @Prop() variant: ButtonVariant = 'primary';
+  @Prop() text: string = '';
+  @Prop() icon?: string;                    // Icon name from Tabler Icons
+  @Prop() iconPosition: 'left' | 'right' = 'left';
+  @Prop() iconOnly: boolean = false;        // Icon-only button (no text)
+  @Prop() loading: boolean = false;
+  @Prop() disabled: boolean = false;
+
+  private renderIcon() {
+    if (!this.icon) return null;
+    
+    return h('dive-icon', {
+      name: this.loading ? 'loader' : this.icon,
+      size: 'small',
+      class: {
+        'button__icon': true,
+        [`button__icon--${this.iconPosition}`]: !this.iconOnly,
+        'button__icon--loading': this.loading
+      }
+    });
+  }
+
+  private renderContent() {
+    if (this.iconOnly) {
+      return this.renderIcon();
+    }
+
+    return [
+      this.iconPosition === 'left' && this.renderIcon(),
+      h('span', { class: 'button__text' }, this.text),
+      this.iconPosition === 'right' && this.renderIcon()
+    ];
+  }
+
+  render() {
+    const classNames = ['button'];
+    if (this.variant !== 'primary') {
+      classNames.push(`button--variant-${this.variant}`);
+    }
+    if (this.disabled) {
+      classNames.push('button--disabled');
+    }
+    if (this.loading) {
+      classNames.push('button--loading');
+    }
+    if (this.iconOnly) {
+      classNames.push('button--icon-only');
+    }
+
+    return h('button', {
+      class: {
+        [classNames.join(' ')]: true
+      },
+      disabled: this.disabled || this.loading,
+      'aria-label': this.iconOnly ? this.text : undefined
+    }, this.renderContent());
+  }
+}
+```
+
+#### Icon-Aware Input Component
+```tsx
+import { Component, Prop, h, Event, EventEmitter } from '@stencil/core';
+
+@Component({
+  tag: 'dive-input',
+  styleUrl: 'Input.css',
+  shadow: true,
+})
+export class Input {
+  @Prop() value: string = '';
+  @Prop() placeholder: string = '';
+  @Prop() leftIcon?: string;     // Leading icon
+  @Prop() rightIcon?: string;    // Trailing icon (e.g., clear, search)
+  @Prop() state: 'default' | 'error' | 'success' = 'default';
+  
+  @Event() valueChange: EventEmitter<string>;
+  @Event() rightIconClick: EventEmitter<void>;
+
+  private handleInput = (event: Event) => {
+    const target = event.target as HTMLInputElement;
+    this.valueChange.emit(target.value);
+  };
+
+  private handleRightIconClick = () => {
+    this.rightIconClick.emit();
+  };
+
+  render() {
+    const hasLeftIcon = !!this.leftIcon;
+    const hasRightIcon = !!this.rightIcon;
+
+    return h('div', {
+      class: {
+        'input-wrapper': true,
+        [`input-wrapper--state-${this.state}`]: this.state !== 'default',
+        'input-wrapper--has-left-icon': hasLeftIcon,
+        'input-wrapper--has-right-icon': hasRightIcon
+      }
+    }, [
+      hasLeftIcon && h('dive-icon', {
+        name: this.leftIcon,
+        size: 'small',
+        class: 'input__icon input__icon--left'
+      }),
+      
+      h('input', {
+        class: 'input',
+        value: this.value,
+        placeholder: this.placeholder,
+        onInput: this.handleInput
+      }),
+      
+      hasRightIcon && h('dive-icon', {
+        name: this.rightIcon,
+        size: 'small',
+        class: 'input__icon input__icon--right input__icon--clickable',
+        onClick: this.handleRightIconClick
+      })
+    ]);
+  }
+}
+```
+
 #### CSS with Design System Variables
 ```css
 :host {
@@ -406,18 +542,72 @@ export class ComponentName {
 }
 ```
 
+## Icon Integration Guidelines
+
+### **When to Use Icons in Components**
+Based on Figma MCP data, add icon support when:
+- **Figma shows icon instances** in the component design
+- **Icon properties exist** in the Figma component panel  
+- **Icon variants** are defined (with/without icon, icon positions)
+- **Icon swapping** is available in Figma's component variables
+
+### **Icon Property Patterns**
+```tsx
+// Basic icon support
+@Prop() icon?: string;                    // Icon name from Tabler library
+
+// Advanced icon features
+@Prop() iconPosition: 'left' | 'right' = 'left';  // Icon placement
+@Prop() iconOnly: boolean = false;                 // Icon-only mode
+@Prop() iconSize: 'small' | 'medium' | 'large' = 'small';  // Icon size override
+@Prop() showIcon: boolean = true;                  // Toggle icon visibility
+
+// State-dependent icons
+@Prop() loadingIcon: string = 'loader';            // Different icon when loading
+@Prop() successIcon: string = 'check';             // Success state icon
+@Prop() errorIcon: string = 'x';                   // Error state icon
+```
+
+### **Available Tabler Icons**
+**Current Library**: Copy icons from `node_modules/@tabler/icons/icons/` to `public/icons/`
+
+```bash
+# Common UI icons already available
+public/icons/outline/: home, user, settings, search, plus, minus, x, check, heart, star, mail, phone, bookmark
+public/icons/filled/: heart, star, bookmark
+
+# Add more icons as needed
+cp node_modules/@tabler/icons/icons/outline/calendar.svg public/icons/outline/
+cp node_modules/@tabler/icons/icons/filled/circle.svg public/icons/filled/
+```
+
+**Usage in Components**:
+```html
+<!-- Standalone icons -->
+<dive-icon name="home" size="medium" color="blue"></dive-icon>
+
+<!-- Icons in buttons -->
+<dive-button text="Save" icon="check" icon-position="left"></dive-button>
+<dive-button icon="plus" icon-only text="Add item"></dive-button>
+
+<!-- Icons in inputs -->
+<dive-input placeholder="Search..." left-icon="search" right-icon="x"></dive-input>
+```
+
 ## Final Validation
 After implementation, verify:
 1. **Screenshot comparison**: Does the rendered Stencil component match the Figma design?
 2. **MCP Data Completeness**: Are ALL component properties from MCP server implemented as `@Prop()` declarations?
 3. **Variant completeness**: Are all variants from MCP server implemented with correct CSS classes?
 4. **Boolean functionality**: Do all boolean properties show/hide elements as in Figma?
-5. **Design system integration**: Are only existing CSS custom properties used with fallbacks?
-6. **Stencil patterns**: Does the component follow the established Stencil patterns from Badge component?
-7. **Build success**: Does `npm run build` complete without errors?
-8. **Storybook integration**: Do all stories render correctly with `defineCustomElement()` registration?
-9. **Theme compatibility**: Does the component work with light/dark/high-contrast modes?
-10. **Property reflection**: Are all `@Prop()` declarations properly reflected as HTML attributes?
+5. **Icon integration**: Are Figma icon instances properly implemented using `dive-icon` component?
+6. **Icon properties**: Are all Figma icon-related properties mapped to component props?
+7. **Design system integration**: Are only existing CSS custom properties used with fallbacks?
+8. **Stencil patterns**: Does the component follow the established Stencil patterns from Badge and Icon components?
+9. **Build success**: Does `npm run build` complete without errors?
+10. **Storybook integration**: Do all stories render correctly with `defineCustomElement()` registration?
+11. **Theme compatibility**: Does the component work with light/dark/high-contrast modes?
+12. **Property reflection**: Are all `@Prop()` declarations properly reflected as HTML attributes?
 
 ## Reference Implementation
 
@@ -436,6 +626,7 @@ See `src/components/_Blueprint/` for the **comprehensive reference template** th
 
 ### 📚 **Additional Working Examples**
 - **Badge Component**: `src/components/Badge/` - Simple component with variants
+- **Icon Component**: `src/components/Icon/` - SVG icon component with Tabler Icons integration (5,800+ icons)
 - **Checkbox Component**: `src/components/Checkbox/` - Complex form component with state management
 
 ### 🚀 **Quick Start with Blueprint**

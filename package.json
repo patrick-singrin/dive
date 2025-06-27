@@ -34,6 +34,7 @@
   },
   "dependencies": {
     "@stencil/core": "^4.35.1",
-    "@storybook/html-vite": "^9.0.13"
+    "@storybook/html-vite": "^9.0.13",
+    "@tabler/icons": "^3.34.0"
   }
 }

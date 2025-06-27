@@ -151,6 +151,112 @@ const meta: Meta = {
 export default meta;
 ```
 
+### **4. Icon Component Integration (SVG + External Library)**
+
+```typescript
+// Icon.tsx - Advanced example with external SVG loading
+import { Component, Prop, h, Host, State } from '@stencil/core';
+
+@Component({
+  tag: 'dive-icon',
+  styleUrl: 'Icon.css',
+  shadow: true,
+})
+export class Icon {
+  @Prop() name!: string;
+  @Prop() size: 'small' | 'medium' | 'large' = 'medium';
+  @Prop() color?: string;
+  @Prop() variant: 'outline' | 'filled' = 'outline';
+  
+  @State() svgContent: string = '';
+
+  async componentWillLoad() {
+    await this.loadIconSVG();
+  }
+
+  private async loadIconSVG() {
+    try {
+      const response = await fetch(`/icons/${this.variant}/${this.name}.svg`);
+      if (response.ok) {
+        this.svgContent = await response.text();
+      }
+    } catch (error) {
+      console.warn(`Icon "${this.name}" not found`);
+    }
+  }
+
+  private parseSVGPaths(svgContent: string) {
+    const pathMatches = svgContent.match(/<path[^>]*>/g) || [];
+    return pathMatches.map((pathString, index) => {
+      const dMatch = pathString.match(/d="([^"]*)"/);
+      const attrs: any = { key: index };
+      if (dMatch) attrs.d = dMatch[1];
+      return h('path', attrs);
+    });
+  }
+
+  render() {
+    const style = this.color ? { color: this.color } : {};
+    const paths = this.parseSVGPaths(this.svgContent);
+
+    return h(Host, { 
+      class: { [`icon--${this.size}`]: true }, 
+      style 
+    }, 
+      h('svg', {
+        xmlns: "http://www.w3.org/2000/svg",
+        width: "24",
+        height: "24", 
+        viewBox: "0 0 24 24",
+        fill: "none",
+        stroke: "currentColor",
+        'stroke-linecap': "round",
+        'stroke-linejoin': "round"
+      }, paths)
+    );
+  }
+}
+```
+
+### **5. Using Icons in Other Components**
+
+```typescript
+// Button.tsx - Using icons inside components
+import { Component, Prop, h } from '@stencil/core';
+
+@Component({
+  tag: 'dive-button',
+  styleUrl: 'Button.css',
+  shadow: true,
+})
+export class Button {
+  @Prop() icon?: string;
+  @Prop() iconPosition: 'left' | 'right' = 'left';
+  @Prop() text: string = '';
+
+  render() {
+    const iconElement = this.icon ? 
+      h('dive-icon', { 
+        name: this.icon, 
+        size: 'small',
+        class: `button__icon button__icon--${this.iconPosition}` 
+      }) : null;
+
+    return h('button', { class: 'button' }, [
+      this.iconPosition === 'left' && iconElement,
+      h('span', { class: 'button__text' }, this.text),
+      this.iconPosition === 'right' && iconElement
+    ]);
+  }
+}
+```
+
+```html
+<!-- Usage examples -->
+<dive-button text="Save" icon="check" icon-position="left"></dive-button>
+<dive-button text="Delete" icon="x" icon-position="right"></dive-button>
+```
+
 ## 🎨 **CSS Variable System**
 
 ### **Available Design Tokens**
@@ -244,6 +350,42 @@ npm run start          # Stencil dev server with hot reload
 1. Ensure build runs before Storybook: `"storybook": "npm run build && storybook dev"`
 2. Import from `dist/components/component-name`
 3. Call `defineCustomElement()` in stories
+
+## 🎯 **Available Components & Usage Patterns**
+
+### **Icon Component (dive-icon)**
+Integrates 5,800+ Tabler Icons with support for outline and filled variants.
+
+```html
+<!-- Basic usage -->
+<dive-icon name="home"></dive-icon>
+
+<!-- With customization -->
+<dive-icon name="heart" variant="filled" color="red" size="large"></dive-icon>
+
+<!-- In other components -->
+<dive-icon name="search" size="small" color="var(--Color-Base-Foreground-subtle)"></dive-icon>
+```
+
+**Available Icons**: Copy SVG files from `node_modules/@tabler/icons/icons/` to `public/icons/`
+```bash
+# Add specific icons
+cp node_modules/@tabler/icons/icons/outline/calendar.svg public/icons/outline/
+cp node_modules/@tabler/icons/icons/filled/star.svg public/icons/filled/
+
+# Add all icons (full library)
+cp node_modules/@tabler/icons/icons/outline/*.svg public/icons/outline/
+cp node_modules/@tabler/icons/icons/filled/*.svg public/icons/filled/
+```
+
+### **Badge Component (dive-badge)**
+Simple semantic component with type variants and natural CSS variable inheritance.
+
+```html
+<dive-badge type="primary" text="New"></dive-badge>
+<dive-badge type="success" text="Approved"></dive-badge>
+<dive-badge type="warning" text="Pending"></dive-badge>
+```
 
 ## 📊 **Migration Summary**
 

@@ -109,6 +109,22 @@ export namespace Components {
          */
         "variant": ChipVariant;
     }
+    interface DiveIcon {
+        "color"?: string;
+        "name": string;
+        /**
+          * @default 'medium'
+         */
+        "size": 'small' | 'medium' | 'large';
+        /**
+          * @default 2
+         */
+        "strokeWidth": number;
+        /**
+          * @default 'outline'
+         */
+        "variant": 'outline' | 'filled';
+    }
 }
 export interface DiveBlueprintCustomEvent<T> extends CustomEvent<T> {
     detail: T;
@@ -152,10 +168,17 @@ declare global {
         prototype: HTMLDiveChipElement;
         new (): HTMLDiveChipElement;
     };
+    interface HTMLDiveIconElement extends Components.DiveIcon, HTMLStencilElement {
+    }
+    var HTMLDiveIconElement: {
+        prototype: HTMLDiveIconElement;
+        new (): HTMLDiveIconElement;
+    };
     interface HTMLElementTagNameMap {
         "dive-badge": HTMLDiveBadgeElement;
         "dive-blueprint": HTMLDiveBlueprintElement;
         "dive-chip": HTMLDiveChipElement;
+        "dive-icon": HTMLDiveIconElement;
     }
 }
 declare namespace LocalJSX {
@@ -272,10 +295,27 @@ declare namespace LocalJSX {
          */
         "variant"?: ChipVariant;
     }
+    interface DiveIcon {
+        "color"?: string;
+        "name": string;
+        /**
+          * @default 'medium'
+         */
+        "size"?: 'small' | 'medium' | 'large';
+        /**
+          * @default 2
+         */
+        "strokeWidth"?: number;
+        /**
+          * @default 'outline'
+         */
+        "variant"?: 'outline' | 'filled';
+    }
     interface IntrinsicElements {
         "dive-badge": DiveBadge;
         "dive-blueprint": DiveBlueprint;
         "dive-chip": DiveChip;
+        "dive-icon": DiveIcon;
     }
 }
 export { LocalJSX as JSX };
@@ -290,6 +330,7 @@ declare module "@stencil/core" {
              */
             "dive-blueprint": LocalJSX.DiveBlueprint & JSXBase.HTMLAttributes<HTMLDiveBlueprintElement>;
             "dive-chip": LocalJSX.DiveChip & JSXBase.HTMLAttributes<HTMLDiveChipElement>;
+            "dive-icon": LocalJSX.DiveIcon & JSXBase.HTMLAttributes<HTMLDiveIconElement>;
         }
     }
 }
