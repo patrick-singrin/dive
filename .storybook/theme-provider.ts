@@ -59,7 +59,7 @@ export const withThemeProvider = (Story, context) => {
     /* Story canvas specific (where components render) */
     .sb-main-padded,
     #storybook-preview-iframe {
-      background: var(--sb-bg-subtle) !important;
+      background: var(--sb-bg-primary) !important;
       transition: background 0.2s;
     }
     
@@ -82,7 +82,7 @@ export const withThemeProvider = (Story, context) => {
     
     /* Ensure docs page also gets themed */
     .docs-story {
-      background: var(--sb-bg-subtle) !important;
+      background: var(--sb-bg-primary) !important;
     }
   `;
   return Story();
